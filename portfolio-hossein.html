@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hossein Arabkhaburi — Architecture & Gestion de Projets</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:    #0D0E10;
+      --white:    #F7F7F5;
+      --teal:     #1B6CA8;
+      --teal-dim: #134E7A;
+      --teal-light: #E8F2FA;
+      --grey-1:   #1C1E22;
+      --grey-2:   #3A3D44;
+      --grey-3:   #7A7F8A;
+      --grey-4:   #C8CBD2;
+      --grey-5:   #EDEEF0;
+      --line:     rgba(255,255,255,0.08);
+      --serif: 'DM Serif Display', Georgia, serif;
+      --sans:  'Inter', system-ui, sans-serif;
+      --mono:  'JetBrains Mono', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.25rem 3rem;
+      background: rgba(13,14,16,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav-logo {
+      font-family: var(--mono);
+      font-size: 0.85rem;
+      color: var(--teal);
+      letter-spacing: 0.05em;
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--grey-3);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--white); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 8rem 3rem 4rem;
+      gap: 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    #hero::before {
+      content: '';
+      position: absolute;
+      top: -20%; right: -10%;
+      width: 60vw; height: 60vw;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(27,108,168,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-eyebrow {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--teal);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      display: flex; align-items: center; gap: 0.75rem;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      display: block; width: 2rem; height: 1px;
+      background: var(--teal);
+    }
+    .hero-name {
+      font-family: var(--serif);
+      font-size: clamp(3rem, 5vw, 5rem);
+      line-height: 1.05;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+    }
+    .hero-name em {
+      font-style: italic;
+      color: var(--teal);
+    }
+    .hero-title {
+      font-size: 1rem;
+      color: var(--grey-3);
+      font-weight: 300;
+      margin-bottom: 2rem;
+      letter-spacing: 0.02em;
+    }
+    .hero-desc {
+      font-size: 1rem;
+      color: var(--grey-4);
+      line-height: 1.75;
+      max-width: 44ch;
+      margin-bottom: 2.5rem;
+    }
+    .hero-cta {
+      display: flex; gap: 1rem; flex-wrap: wrap;
+    }
+    .btn-primary {
+      display: inline-block;
+      padding: 0.85rem 2rem;
+      background: var(--teal);
+      color: var(--white);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      border-radius: 2px;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn-primary:hover { background: var(--teal-dim); transform: translateY(-1px); }
+    .btn-outline {
+      display: inline-block;
+      padding: 0.85rem 2rem;
+      border: 1px solid var(--grey-2);
+      color: var(--grey-3);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      border-radius: 2px;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-outline:hover { border-color: var(--grey-3); color: var(--white); }
+
+    /* Hero right — stat block */
+    .hero-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--grey-2);
+      border: 1px solid var(--grey-2);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .stat-cell {
+      background: var(--grey-1);
+      padding: 2rem 1.75rem;
+      transition: background 0.2s;
+    }
+    .stat-cell:hover { background: #22252C; }
+    .stat-number {
+      font-family: var(--serif);
+      font-size: 2.5rem;
+      color: var(--teal);
+      line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+    .stat-label {
+      font-size: 0.75rem;
+      color: var(--grey-3);
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    /* ── SECTIONS ── */
+    section { padding: 6rem 3rem; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-header {
+      display: flex; align-items: baseline; gap: 1.5rem;
+      margin-bottom: 3.5rem;
+    }
+    .section-tag {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--teal);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .section-title {
+      font-family: var(--serif);
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      color: var(--white);
+      line-height: 1.15;
+    }
+    .divider {
+      height: 1px;
+      background: var(--line);
+      margin: 0;
+    }
+
+    /* ── EXPÉRIENCE ── */
+    #experience { background: var(--grey-1); }
+    .exp-list { display: flex; flex-direction: column; gap: 0; }
+    .exp-item {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 3rem;
+      padding: 2.5rem 0;
+      border-bottom: 1px solid var(--line);
+      transition: background 0.15s;
+    }
+    .exp-item:last-child { border-bottom: none; }
+    .exp-meta { padding-top: 0.2rem; }
+    .exp-date {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--teal);
+      letter-spacing: 0.06em;
+      margin-bottom: 0.4rem;
+    }
+    .exp-company {
+      font-size: 0.8rem;
+      color: var(--grey-3);
+      line-height: 1.4;
+    }
+    .exp-role {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 0.75rem;
+    }
+    .exp-desc {
+      font-size: 0.9rem;
+      color: var(--grey-4);
+      line-height: 1.7;
+      margin-bottom: 1rem;
+    }
+    .exp-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .tag {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      padding: 0.3rem 0.75rem;
+      background: rgba(27,108,168,0.12);
+      color: var(--teal);
+      border: 1px solid rgba(27,108,168,0.25);
+      border-radius: 2px;
+      letter-spacing: 0.04em;
+    }
+
+    /* ── COMPÉTENCES ── */
+    #competences { background: var(--black); }
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--grey-2);
+      border: 1px solid var(--grey-2);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .skill-group {
+      background: var(--grey-1);
+      padding: 2rem;
+    }
+    .skill-group-title {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--teal);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--line);
+    }
+    .skill-item {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .skill-item:last-child { border-bottom: none; }
+    .skill-name {
+      font-size: 0.85rem;
+      color: var(--grey-4);
+    }
+    .skill-bar {
+      width: 80px; height: 3px;
+      background: var(--grey-2);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .skill-fill {
+      height: 100%;
+      background: var(--teal);
+      border-radius: 2px;
+    }
+
+    /* ── PROJETS ── */
+    #projets { background: var(--grey-1); }
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--grey-2);
+      border: 1px solid var(--grey-2);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .project-card {
+      background: var(--grey-1);
+      padding: 2.25rem;
+      display: flex; flex-direction: column;
+      transition: background 0.2s;
+    }
+    .project-card:hover { background: #22252C; }
+    .project-type {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--teal);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    .project-title {
+      font-family: var(--serif);
+      font-size: 1.2rem;
+      color: var(--white);
+      line-height: 1.3;
+      margin-bottom: 0.75rem;
+    }
+    .project-desc {
+      font-size: 0.85rem;
+      color: var(--grey-3);
+      line-height: 1.65;
+      flex: 1;
+      margin-bottom: 1.25rem;
+    }
+    .project-meta {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--grey-3);
+      letter-spacing: 0.04em;
+    }
+
+    /* ── CERTIFICATIONS ── */
+    #certifications { background: var(--black); }
+    .cert-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1px;
+      background: var(--grey-2);
+      border: 1px solid var(--grey-2);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .cert-item {
+      background: var(--grey-1);
+      padding: 2rem;
+      display: flex; align-items: flex-start; gap: 1.25rem;
+    }
+    .cert-icon {
+      width: 2.5rem; height: 2.5rem;
+      background: rgba(27,108,168,0.12);
+      border: 1px solid rgba(27,108,168,0.25);
+      border-radius: 2px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      font-size: 1rem;
+    }
+    .cert-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 0.3rem;
+    }
+    .cert-org {
+      font-size: 0.78rem;
+      color: var(--grey-3);
+    }
+
+    /* ── CONTACT ── */
+    #contact {
+      background: var(--grey-1);
+      text-align: center;
+    }
+    .contact-headline {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      color: var(--white);
+      line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+    .contact-headline em { font-style: italic; color: var(--teal); }
+    .contact-sub {
+      font-size: 0.95rem;
+      color: var(--grey-3);
+      margin-bottom: 2.5rem;
+      max-width: 48ch;
+      margin-left: auto; margin-right: auto;
+    }
+    .contact-links {
+      display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;
+    }
+    .contact-pill {
+      display: flex; align-items: center; gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      border: 1px solid var(--grey-2);
+      border-radius: 2px;
+      color: var(--grey-3);
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 500;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .contact-pill:hover { border-color: var(--teal); color: var(--teal); }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 2rem 3rem;
+      border-top: 1px solid var(--line);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .footer-name {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--grey-3);
+    }
+    .footer-location {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--grey-3);
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .location-dot {
+      width: 6px; height: 6px;
+      background: var(--teal);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { gap: 1.25rem; }
+      #hero { grid-template-columns: 1fr; padding: 7rem 1.5rem 3rem; gap: 3rem; }
+      #hero::before { display: none; }
+      section { padding: 4rem 1.5rem; }
+      .exp-item { grid-template-columns: 1fr; gap: 0.5rem; }
+      .skills-grid { grid-template-columns: 1fr; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .cert-list { grid-template-columns: 1fr; }
+      footer { flex-direction: column; gap: 0.75rem; text-align: center; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .location-dot { animation: none; }
+      * { transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">H.ARABKHABURI</a>
+  <ul class="nav-links">
+    <li><a href="#experience">Expérience</a></li>
+    <li><a href="#competences">Compétences</a></li>
+    <li><a href="#projets">Projets</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-left">
+    <p class="hero-eyebrow">Architecte · Chef de Projet</p>
+    <h1 class="hero-name">Hossein<br><em>Arabkhaburi</em></h1>
+    <p class="hero-title">De l'architecture à la gestion opérationnelle</p>
+    <p class="hero-desc">
+      Architecte de formation (IUST, 15,33/20), spécialisé en planification, coordination d'équipes et suivi opérationnel de projets techniques d'envergure. Expérience directe sur des chantiers industriels majeurs en Iran, désormais basé à Nancy.
+    </p>
+    <div class="hero-cta">
+      <a href="#contact" class="btn-primary">Me contacter</a>
+      <a href="#experience" class="btn-outline">Voir le parcours</a>
+    </div>
+  </div>
+
+  <div class="hero-stats">
+    <div class="stat-cell">
+      <div class="stat-number">4+</div>
+      <div class="stat-label">Ans d'expérience</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-number">15.33</div>
+      <div class="stat-label">Moyenne IUST / 20</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-number">2056</div>
+      <div class="stat-label">Participants formés</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-number">HSE</div>
+      <div class="stat-label">Certifié sécurité</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- EXPÉRIENCE -->
+<section id="experience">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-tag">01 — Parcours</span>
+      <h2 class="section-title">Expériences professionnelles</h2>
+    </div>
+
+    <div class="exp-list">
+
+      <div class="exp-item">
+        <div class="exp-meta">
+          <div class="exp-date">Juil. 2023 — Juil. 2024</div>
+          <div class="exp-company">Sacookar Co.<br>Ispahan, Iran</div>
+        </div>
+        <div class="exp-content">
+          <div class="exp-role">Ingénieur Planification & Contrôle de Projet</div>
+          <div class="exp-desc">
+            Pilotage de l'avancement des travaux sur le projet de raffinerie d'Ispahan (gros œuvre, structures béton, tuyauterie). Élaboration et mise à jour des plannings d'exécution, analyse des écarts de délais et reporting à la direction. Coordination entre les équipes techniques multidisciplinaires et la direction de projet.
+          </div>
+          <div class="exp-tags">
+            <span class="tag">Planification</span>
+            <span class="tag">Contrôle de projet</span>
+            <span class="tag">Gros œuvre</span>
+            <span class="tag">Reporting</span>
+            <span class="tag">Coordination technique</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-meta">
+          <div class="exp-date">Nov. 2022 — Mai 2023</div>
+          <div class="exp-company">Asta Engineering<br>Téhéran, Iran</div>
+        </div>
+        <div class="exp-content">
+          <div class="exp-role">Modélisation 3D & Conception</div>
+          <div class="exp-desc">
+            Conception et modélisation 3D de serres industrielles. Réalisation de plans techniques et dossiers d'exécution complets pour la production et le chantier.
+          </div>
+          <div class="exp-tags">
+            <span class="tag">Revit</span>
+            <span class="tag">Rhino</span>
+            <span class="tag">Dossiers d'exécution</span>
+            <span class="tag">Conception technique</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-meta">
+          <div class="exp-date">Sept. — Déc. 2022</div>
+          <div class="exp-company">IUST<br>Téhéran, Iran</div>
+        </div>
+        <div class="exp-content">
+          <div class="exp-role">Assistant d'Enseignement — Gestion de Chantier</div>
+          <div class="exp-desc">
+            Suivi quotidien de chantier et coordination des tâches d'exécution. Support pédagogique aux étudiants en architecture sur les aspects opérationnels de la gestion de chantier.
+          </div>
+          <div class="exp-tags">
+            <span class="tag">Suivi de chantier</span>
+            <span class="tag">Coordination</span>
+            <span class="tag">Pédagogie</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-meta">
+          <div class="exp-date">Mai — Nov. 2020</div>
+          <div class="exp-company">Gam Co<br>Téhéran, Iran</div>
+        </div>
+        <div class="exp-content">
+          <div class="exp-role">Assistant de Chantier</div>
+          <div class="exp-desc">
+            Gestion des opérations quotidiennes sur site. Coordination des tâches et collaboration avec l'équipe d'exécution pour assurer le bon déroulement des travaux.
+          </div>
+          <div class="exp-tags">
+            <span class="tag">Opérations chantier</span>
+            <span class="tag">Travail d'équipe</span>
+            <span class="tag">Suivi terrain</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- COMPÉTENCES -->
+<section id="competences">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-tag">02 — Outils</span>
+      <h2 class="section-title">Compétences techniques</h2>
+    </div>
+
+    <div class="skills-grid">
+      <div class="skill-group">
+        <div class="skill-group-title">Modélisation & BIM</div>
+        <div class="skill-item">
+          <span class="skill-name">Revit</span>
+          <div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div>
+        </div>
+        <div class="skill-item">
+          <span class="skill-name">AutoCAD</span>
+          <div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div>
+        </div>
+        <div class="skill-item">
+          <span class="skill-name">Rhino</span>
+          <div class="skill-bar"><div class="skill-fill" style="width:80%"></div></div>
+        </div>
+        <div class="skill-item">
+          <span class="skill-name">Grasshopper</span>
+          <div class="skill-bar"><div class="skill-fill" style="width:70%"></div></div>
+        </div>
+        <div class="skill-item">
+          <span class="skill-name">Blender</span>
+          <div class="skill-bar"><div class="skill-fill" style="width:65%"></div></div>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <div class="skill-group-title">Visualisation & Graphisme</div>
+        <div class="skill-item">
+          <span class="skill-name">Enscape</span>
+          <div class="skill-bar"><div class="skill-fill" style="width:80%"></div></div>
+        </div>
+        <div class="skill-item">
+          <span class="skill-name">Lumion</span>
+          <div class="skill-bar"><div class="skill-fill" style="width:75%"></div></div>
+        </div>
+        <div class="skill-item">
+          <span class="skill-name">Photoshop</span>
+          <div class="skill-bar"><div class="skill-fill" style="width:80%"></div></div>
+        </div>
+        <div class="skill-item">
+          <span class="skill-name">InDesign</span>
+          <div class="skill-bar"><div class="skill-fill" style="width:75%"></div></div>
+        </div>
+        <div class="skill-item">
+          <span class="skill-name">Premiere</span>
+          <div class="skill-bar"><div class="skill-fill" style="width:60%"></div></div>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <div class="skill-group-title">Gestion & Management</div>
+        <div class="skill-item">
+          <span class="skill-name">Excel avancé</span>
+          <div class="skill-bar"><div class="skill-fill" style="width:80%"></div></div>
+        </div>
+        <div class="skill-item">
+          <span class="skill-name">Planification chantier</span>
+          <div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div>
+        </div>
+        <div class="skill-item">
+          <span class="skill-name">Reporting</span>
+          <div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div>
+        </div>
+        <div class="skill-item">
+          <span class="skill-name">Coordination équipes</span>
+          <div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div>
+        </div>
+        <div class="skill-item">
+          <span class="skill-name">HSE-MS</span>
+          <div class="skill-bar"><div class="skill-fill" style="width:75%"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PROJETS -->
+<section id="projets">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-tag">03 — Réalisations</span>
+      <h2 class="section-title">Projets marquants</h2>
+    </div>
+
+    <div class="projects-grid">
+      <div class="project-card">
+        <div class="project-type">Industrie · Gestion de projet</div>
+        <h3 class="project-title">Raffinerie d'Ispahan</h3>
+        <p class="project-desc">
+          Suivi et contrôle de l'avancement d'un projet industriel majeur. Planification d'exécution, analyse des écarts et coordination de plusieurs équipes techniques simultanées.
+        </p>
+        <div class="project-meta">Sacookar Co. · 2023–2024</div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-type">Architecture · Événementiel</div>
+        <h3 class="project-title">Stand — Hôpitaux & Infrastructures</h3>
+        <p class="project-desc">
+          Conception, réalisation et coordination du montage du stand officiel au Salon international Hôpitaux & Infrastructures pour Sahifeh Eskan.
+        </p>
+        <div class="project-meta">Sahifeh Eskan · 2018</div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-type">Architecture · Institution</div>
+        <h3 class="project-title">Stand officiel IUST</h3>
+        <p class="project-desc">
+          Conception et construction du stand officiel de l'Université des sciences et technologies d'Iran au Salon national des architectes et employeurs.
+        </p>
+        <div class="project-meta">IUST · 2019</div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-type">Modélisation 3D · Industriel</div>
+        <h3 class="project-title">Serres industrielles</h3>
+        <p class="project-desc">
+          Modélisation 3D complète et réalisation des dossiers d'exécution pour des serres industrielles, de la conception à la documentation technique de production.
+        </p>
+        <div class="project-meta">Asta Engineering · 2022–2023</div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-type">Formation · Management</div>
+        <h3 class="project-title">Programme Isminar — 22 ateliers</h3>
+        <p class="project-desc">
+          Organisation et animation de 22 ateliers (29 heures) sur la plateforme Isminar, ayant réuni 2 056 participants. Gestion complète de la logistique et du contenu.
+        </p>
+        <div class="project-meta">Isminar · 2021–2022</div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-type">Leadership · Académique</div>
+        <h3 class="project-title">Conseil étudiant IUST</h3>
+        <p class="project-desc">
+          Secrétaire général du Conseil étudiant de la faculté d'architecture et secrétaire aux relations publiques du Conseil central de l'IUST. Organisation de voyages d'étude dans six villes.
+        </p>
+        <div class="project-meta">IUST · 2018</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-tag">04 — Diplômes</span>
+      <h2 class="section-title">Formation & certifications</h2>
+    </div>
+
+    <div class="cert-list">
+      <div class="cert-item">
+        <div class="cert-icon">🎓</div>
+        <div>
+          <div class="cert-title">Licence en Architecture — Bac+4</div>
+          <div class="cert-org">Université des sciences et technologies d'Iran (IUST) · 2017–2022 · Moyenne 15,33/20</div>
+        </div>
+      </div>
+      <div class="cert-item">
+        <div class="cert-icon">📋</div>
+        <div>
+          <div class="cert-title">Architecture Design, Execution & Supervision (ADES)</div>
+          <div class="cert-org">Centre d'architecture d'Iran · 220 heures · 2022</div>
+        </div>
+      </div>
+      <div class="cert-item">
+        <div class="cert-icon">🛡️</div>
+        <div>
+          <div class="cert-title">HSE-MS — Management Hygiène, Sécurité, Environnement</div>
+          <div class="cert-org">Certification professionnelle · 2025</div>
+        </div>
+      </div>
+      <div class="cert-item">
+        <div class="cert-icon">🌐</div>
+        <div>
+          <div class="cert-title">Formation de langue française</div>
+          <div class="cert-org">Université de Lorraine · Nancy · 2024–2025 · Niveau B1 → B2</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-inner">
+    <h2 class="contact-headline">Construisons<br><em>ensemble.</em></h2>
+    <p class="contact-sub">
+      Disponible pour un stage, une alternance ou une opportunité en gestion de projets BTP en France.
+    </p>
+    <div class="contact-links">
+      <a href="mailto:H.arabkhaburi@gmail.com" class="contact-pill">
+        ✉ H.arabkhaburi@gmail.com
+      </a>
+      <a href="tel:+33650981909" class="contact-pill">
+        ☎ +33 06 50 98 19 09
+      </a>
+      <a href="https://linkedin.com/in/h-arabkhaburi" target="_blank" class="contact-pill">
+        in LinkedIn
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-name">© 2026 Hossein Arabkhaburi</span>
+  <span class="footer-location">
+    <span class="location-dot"></span>
+    Nancy, France
+  </span>
+</footer>
+
+</body>
+</html>
