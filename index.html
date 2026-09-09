@@ -1,845 +1,1070 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hossein Arabkhaburi — Architecture & Gestion de Projets</title>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Hossein Arabkhaburi — BIM Coordination</title>
 
-    :root {
-      --black:    #0D0E10;
-      --white:    #F7F7F5;
-      --teal:     #1B6CA8;
-      --teal-dim: #134E7A;
-      --teal-light: #E8F2FA;
-      --grey-1:   #1C1E22;
-      --grey-2:   #3A3D44;
-      --grey-3:   #7A7F8A;
-      --grey-4:   #C8CBD2;
-      --grey-5:   #EDEEF0;
-      --line:     rgba(255,255,255,0.08);
-      --serif: 'DM Serif Display', Georgia, serif;
-      --sans:  'Inter', system-ui, sans-serif;
-      --mono:  'JetBrains Mono', monospace;
-    }
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,400..500&family=Space+Grotesk:wght@300..700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
-    html { scroll-behavior: smooth; }
+<script src="https://unpkg.com/@lottiefiles/dotlottie-wc@0.9.14/dist/dotlottie-wc.js" type="module"></script>
 
-    body {
-      background: var(--black);
-      color: var(--white);
-      font-family: var(--sans);
-      font-size: 16px;
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-    }
+<style>
+:root{
+  --paper:#EEEDE7;
+  --ink:#1B1B18;
+  --blue:#2547A8;
+  --blue-soft:#DDE3F5;
+  --mid:#6E6C63;
+  --white:#FAFAF7;
+  --line:rgba(27,27,24,.12);
+  --line2:rgba(27,27,24,.24);
+  --serif:'Fraunces',Georgia,serif;
+  --sans:'Space Grotesk',system-ui,sans-serif;
+  --mono:'JetBrains Mono',monospace;
+}
 
-    /* ── NAV ── */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 1.25rem 3rem;
-      background: rgba(13,14,16,0.85);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--line);
-    }
-    .nav-logo {
-      font-family: var(--mono);
-      font-size: 0.85rem;
-      color: var(--teal);
-      letter-spacing: 0.05em;
-      text-decoration: none;
-    }
-    .nav-links { display: flex; gap: 2rem; list-style: none; }
-    .nav-links a {
-      font-size: 0.8rem;
-      font-weight: 500;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--grey-3);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-    .nav-links a:hover { color: var(--white); }
+*{box-sizing:border-box;margin:0;padding:0}
 
-    /* ── HERO ── */
-    #hero {
-      min-height: 100vh;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      align-items: center;
-      padding: 8rem 3rem 4rem;
-      gap: 4rem;
-      position: relative;
-      overflow: hidden;
-    }
-    #hero::before {
-      content: '';
-      position: absolute;
-      top: -20%; right: -10%;
-      width: 60vw; height: 60vw;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(27,108,168,0.12) 0%, transparent 70%);
-      pointer-events: none;
-    }
-    .hero-eyebrow {
-      font-family: var(--mono);
-      font-size: 0.75rem;
-      color: var(--teal);
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      margin-bottom: 1.5rem;
-      display: flex; align-items: center; gap: 0.75rem;
-    }
-    .hero-eyebrow::before {
-      content: '';
-      display: block; width: 2rem; height: 1px;
-      background: var(--teal);
-    }
-    .hero-name {
-      font-family: var(--serif);
-      font-size: clamp(3rem, 5vw, 5rem);
-      line-height: 1.05;
-      color: var(--white);
-      margin-bottom: 0.5rem;
-    }
-    .hero-name em {
-      font-style: italic;
-      color: var(--teal);
-    }
-    .hero-title {
-      font-size: 1rem;
-      color: var(--grey-3);
-      font-weight: 300;
-      margin-bottom: 2rem;
-      letter-spacing: 0.02em;
-    }
-    .hero-desc {
-      font-size: 1rem;
-      color: var(--grey-4);
-      line-height: 1.75;
-      max-width: 44ch;
-      margin-bottom: 2.5rem;
-    }
-    .hero-cta {
-      display: flex; gap: 1rem; flex-wrap: wrap;
-    }
-    .btn-primary {
-      display: inline-block;
-      padding: 0.85rem 2rem;
-      background: var(--teal);
-      color: var(--white);
-      text-decoration: none;
-      font-size: 0.85rem;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      border-radius: 2px;
-      transition: background 0.2s, transform 0.15s;
-    }
-    .btn-primary:hover { background: var(--teal-dim); transform: translateY(-1px); }
-    .btn-outline {
-      display: inline-block;
-      padding: 0.85rem 2rem;
-      border: 1px solid var(--grey-2);
-      color: var(--grey-3);
-      text-decoration: none;
-      font-size: 0.85rem;
-      font-weight: 500;
-      letter-spacing: 0.04em;
-      border-radius: 2px;
-      transition: border-color 0.2s, color 0.2s;
-    }
-    .btn-outline:hover { border-color: var(--grey-3); color: var(--white); }
+html{scroll-behavior:smooth}
 
-    /* Hero right — stat block */
-    .hero-stats {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1px;
-      background: var(--grey-2);
-      border: 1px solid var(--grey-2);
-      border-radius: 4px;
-      overflow: hidden;
-    }
-    .stat-cell {
-      background: var(--grey-1);
-      padding: 2rem 1.75rem;
-      transition: background 0.2s;
-    }
-    .stat-cell:hover { background: #22252C; }
-    .stat-number {
-      font-family: var(--serif);
-      font-size: 2.5rem;
-      color: var(--teal);
-      line-height: 1;
-      margin-bottom: 0.4rem;
-    }
-    .stat-label {
-      font-size: 0.75rem;
-      color: var(--grey-3);
-      font-weight: 500;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-    }
+body{
+  font-family:var(--sans);
+  background:var(--paper);
+  color:var(--ink);
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
 
-    /* ── SECTIONS ── */
-    section { padding: 6rem 3rem; }
-    .section-inner { max-width: 1100px; margin: 0 auto; }
-    .section-header {
-      display: flex; align-items: baseline; gap: 1.5rem;
-      margin-bottom: 3.5rem;
-    }
-    .section-tag {
-      font-family: var(--mono);
-      font-size: 0.7rem;
-      color: var(--teal);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-    }
-    .section-title {
-      font-family: var(--serif);
-      font-size: clamp(1.8rem, 3vw, 2.5rem);
-      color: var(--white);
-      line-height: 1.15;
-    }
-    .divider {
-      height: 1px;
-      background: var(--line);
-      margin: 0;
-    }
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size:64px 64px;
+  opacity:.45;
+}
 
-    /* ── EXPÉRIENCE ── */
-    #experience { background: var(--grey-1); }
-    .exp-list { display: flex; flex-direction: column; gap: 0; }
-    .exp-item {
-      display: grid;
-      grid-template-columns: 200px 1fr;
-      gap: 3rem;
-      padding: 2.5rem 0;
-      border-bottom: 1px solid var(--line);
-      transition: background 0.15s;
-    }
-    .exp-item:last-child { border-bottom: none; }
-    .exp-meta { padding-top: 0.2rem; }
-    .exp-date {
-      font-family: var(--mono);
-      font-size: 0.72rem;
-      color: var(--teal);
-      letter-spacing: 0.06em;
-      margin-bottom: 0.4rem;
-    }
-    .exp-company {
-      font-size: 0.8rem;
-      color: var(--grey-3);
-      line-height: 1.4;
-    }
-    .exp-role {
-      font-size: 1.05rem;
-      font-weight: 600;
-      color: var(--white);
-      margin-bottom: 0.75rem;
-    }
-    .exp-desc {
-      font-size: 0.9rem;
-      color: var(--grey-4);
-      line-height: 1.7;
-      margin-bottom: 1rem;
-    }
-    .exp-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-    .tag {
-      font-family: var(--mono);
-      font-size: 0.68rem;
-      padding: 0.3rem 0.75rem;
-      background: rgba(27,108,168,0.12);
-      color: var(--teal);
-      border: 1px solid rgba(27,108,168,0.25);
-      border-radius: 2px;
-      letter-spacing: 0.04em;
-    }
+a{color:inherit}
 
-    /* ── COMPÉTENCES ── */
-    #competences { background: var(--black); }
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1px;
-      background: var(--grey-2);
-      border: 1px solid var(--grey-2);
-      border-radius: 4px;
-      overflow: hidden;
-    }
-    .skill-group {
-      background: var(--grey-1);
-      padding: 2rem;
-    }
-    .skill-group-title {
-      font-family: var(--mono);
-      font-size: 0.7rem;
-      color: var(--teal);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      margin-bottom: 1.25rem;
-      padding-bottom: 0.75rem;
-      border-bottom: 1px solid var(--line);
-    }
-    .skill-item {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0.5rem 0;
-      border-bottom: 1px solid rgba(255,255,255,0.04);
-    }
-    .skill-item:last-child { border-bottom: none; }
-    .skill-name {
-      font-size: 0.85rem;
-      color: var(--grey-4);
-    }
-    .skill-bar {
-      width: 80px; height: 3px;
-      background: var(--grey-2);
-      border-radius: 2px;
-      overflow: hidden;
-    }
-    .skill-fill {
-      height: 100%;
-      background: var(--teal);
-      border-radius: 2px;
-    }
+nav{
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  z-index:50;
+  height:74px;
+  padding:0 4rem;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  background:rgba(238,237,231,.88);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line2);
+}
 
-    /* ── PROJETS ── */
-    #projets { background: var(--grey-1); }
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1px;
-      background: var(--grey-2);
-      border: 1px solid var(--grey-2);
-      border-radius: 4px;
-      overflow: hidden;
-    }
-    .project-card {
-      background: var(--grey-1);
-      padding: 2.25rem;
-      display: flex; flex-direction: column;
-      transition: background 0.2s;
-    }
-    .project-card:hover { background: #22252C; }
-    .project-type {
-      font-family: var(--mono);
-      font-size: 0.65rem;
-      color: var(--teal);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      margin-bottom: 1rem;
-    }
-    .project-title {
-      font-family: var(--serif);
-      font-size: 1.2rem;
-      color: var(--white);
-      line-height: 1.3;
-      margin-bottom: 0.75rem;
-    }
-    .project-desc {
-      font-size: 0.85rem;
-      color: var(--grey-3);
-      line-height: 1.65;
-      flex: 1;
-      margin-bottom: 1.25rem;
-    }
-    .project-meta {
-      font-family: var(--mono);
-      font-size: 0.7rem;
-      color: var(--grey-3);
-      letter-spacing: 0.04em;
-    }
+.logo{
+  font-family:var(--mono);
+  font-size:.78rem;
+  text-decoration:none;
+  display:flex;
+  gap:.65rem;
+  align-items:center;
+  letter-spacing:.03em;
+}
 
-    /* ── CERTIFICATIONS ── */
-    #certifications { background: var(--black); }
-    .cert-list {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1px;
-      background: var(--grey-2);
-      border: 1px solid var(--grey-2);
-      border-radius: 4px;
-      overflow: hidden;
-    }
-    .cert-item {
-      background: var(--grey-1);
-      padding: 2rem;
-      display: flex; align-items: flex-start; gap: 1.25rem;
-    }
-    .cert-icon {
-      width: 2.5rem; height: 2.5rem;
-      background: rgba(27,108,168,0.12);
-      border: 1px solid rgba(27,108,168,0.25);
-      border-radius: 2px;
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
-      font-size: 1rem;
-    }
-    .cert-title {
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: var(--white);
-      margin-bottom: 0.3rem;
-    }
-    .cert-org {
-      font-size: 0.78rem;
-      color: var(--grey-3);
-    }
+.logo::before{
+  content:"";
+  width:8px;
+  height:8px;
+  background:var(--blue);
+}
 
-    /* ── CONTACT ── */
-    #contact {
-      background: var(--grey-1);
-      text-align: center;
-    }
-    .contact-headline {
-      font-family: var(--serif);
-      font-size: clamp(2rem, 4vw, 3.5rem);
-      color: var(--white);
-      line-height: 1.1;
-      margin-bottom: 1rem;
-    }
-    .contact-headline em { font-style: italic; color: var(--teal); }
-    .contact-sub {
-      font-size: 0.95rem;
-      color: var(--grey-3);
-      margin-bottom: 2.5rem;
-      max-width: 48ch;
-      margin-left: auto; margin-right: auto;
-    }
-    .contact-links {
-      display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;
-    }
-    .contact-pill {
-      display: flex; align-items: center; gap: 0.5rem;
-      padding: 0.75rem 1.5rem;
-      border: 1px solid var(--grey-2);
-      border-radius: 2px;
-      color: var(--grey-3);
-      text-decoration: none;
-      font-size: 0.82rem;
-      font-weight: 500;
-      transition: border-color 0.2s, color 0.2s;
-    }
-    .contact-pill:hover { border-color: var(--teal); color: var(--teal); }
+.nav-links{
+  display:flex;
+  gap:2rem;
+  list-style:none;
+}
 
-    /* ── FOOTER ── */
-    footer {
-      padding: 2rem 3rem;
-      border-top: 1px solid var(--line);
-      display: flex; align-items: center; justify-content: space-between;
-    }
-    .footer-name {
-      font-family: var(--mono);
-      font-size: 0.75rem;
-      color: var(--grey-3);
-    }
-    .footer-location {
-      font-family: var(--mono);
-      font-size: 0.75rem;
-      color: var(--grey-3);
-      display: flex; align-items: center; gap: 0.5rem;
-    }
-    .location-dot {
-      width: 6px; height: 6px;
-      background: var(--teal);
-      border-radius: 50%;
-      animation: pulse 2s infinite;
-    }
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.3; }
-    }
+.nav-links a{
+  font-family:var(--mono);
+  font-size:.74rem;
+  color:var(--mid);
+  text-decoration:none;
+}
 
-    /* ── RESPONSIVE ── */
-    @media (max-width: 900px) {
-      nav { padding: 1rem 1.5rem; }
-      .nav-links { gap: 1.25rem; }
-      #hero { grid-template-columns: 1fr; padding: 7rem 1.5rem 3rem; gap: 3rem; }
-      #hero::before { display: none; }
-      section { padding: 4rem 1.5rem; }
-      .exp-item { grid-template-columns: 1fr; gap: 0.5rem; }
-      .skills-grid { grid-template-columns: 1fr; }
-      .projects-grid { grid-template-columns: 1fr; }
-      .cert-list { grid-template-columns: 1fr; }
-      footer { flex-direction: column; gap: 0.75rem; text-align: center; }
-    }
+.nav-links a:hover{color:var(--blue)}
 
-    @media (prefers-reduced-motion: reduce) {
-      .location-dot { animation: none; }
-      * { transition: none !important; }
-    }
-  </style>
+.nav-links span{
+  color:var(--blue);
+  margin-right:.25rem;
+}
+
+/* HERO */
+.hero{
+  position:relative;
+  z-index:1;
+  min-height:100vh;
+  padding:11rem 4rem 0;
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+}
+
+.hero-lottie{
+  position:absolute;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  overflow:hidden;
+}
+
+.hero-lottie dotlottie-wc{
+  position:absolute;
+  right:-2%;
+  bottom:-6%;
+  width:68%;
+  height:92%;
+  opacity:0.95;
+  filter:saturate(1.1) contrast(1.05);
+}
+
+.hero::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:1;
+  pointer-events:none;
+  background:
+    linear-gradient(90deg,
+      rgba(238,237,231,.96) 0%,
+      rgba(238,237,231,.72) 30%,
+      rgba(238,237,231,.20) 58%,
+      rgba(238,237,231,0) 78%);
+}
+
+.hero-content,
+.hero-meta,
+.hero-base{
+  position:relative;
+  z-index:2;
+}
+
+.hero-meta{
+  display:flex;
+  flex-wrap:wrap;
+  gap:2rem;
+  font-family:var(--mono);
+  font-size:.72rem;
+  color:var(--mid);
+  margin-bottom:3rem;
+}
+
+.hero-content{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:4rem;
+  align-items:start;
+  flex:1;
+}
+
+.label{
+  display:inline-block;
+  font-family:var(--mono);
+  font-size:.7rem;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:var(--blue);
+  border-bottom:1px solid var(--line2);
+  padding-bottom:.75rem;
+  margin-bottom:1rem;
+}
+
+h1{
+  font-family:var(--serif);
+  font-weight:400;
+  font-size:clamp(2.8rem,6vw,5.5rem);
+  line-height:1.03;
+  letter-spacing:-.02em;
+  max-width:850px;
+  margin-bottom:2rem;
+}
+
+em{font-style:italic;color:var(--blue)}
+
+.hero-text{
+  max-width:54ch;
+  color:var(--mid);
+  font-size:1.05rem;
+  line-height:1.75;
+  margin-bottom:2.4rem;
+}
+
+.actions{
+  display:flex;
+  gap:1rem;
+  flex-wrap:wrap;
+}
+
+.btn{
+  font-family:var(--mono);
+  font-size:.82rem;
+  text-decoration:none;
+  padding:.9rem 1.55rem;
+  border:1px solid var(--line2);
+  display:inline-flex;
+  align-items:center;
+  gap:.5rem;
+  transition:.2s;
+}
+
+.btn.dark{
+  background:var(--ink);
+  color:var(--paper);
+  border-color:var(--ink);
+}
+
+.btn.dark:hover{
+  background:var(--blue);
+  border-color:var(--blue);
+}
+
+.btn:hover{border-color:var(--ink)}
+
+.hero-base{
+  height:110px;
+  border-top:1px solid var(--line2);
+  margin-top:4rem;
+  display:flex;
+  align-items:flex-end;
+  padding-bottom:1rem;
+  font-family:var(--mono);
+  font-size:.68rem;
+  color:var(--mid);
+}
+
+/* SECTIONS */
+section{
+  position:relative;
+  z-index:2;
+  padding:7rem 4rem;
+}
+
+.wrap{
+  max-width:1240px;
+  margin:auto;
+}
+
+.section-head{
+  display:flex;
+  gap:1.5rem;
+  align-items:baseline;
+  padding-bottom:1.5rem;
+  margin-bottom:4rem;
+  border-bottom:1px solid var(--line2);
+}
+
+.idx{
+  font-family:var(--mono);
+  color:var(--blue);
+  font-size:.85rem;
+}
+
+h2{
+  font-family:var(--serif);
+  font-weight:400;
+  font-size:clamp(2rem,3.5vw,3.2rem);
+  line-height:1.15;
+}
+
+.white{background:var(--white)}
+.paper{background:var(--paper)}
+
+.lead{
+  font-family:var(--serif);
+  font-size:1.5rem;
+  line-height:1.45;
+  max-width:78ch;
+  margin-bottom:1.8rem;
+}
+
+.copy{
+  max-width:84ch;
+}
+
+.copy p{
+  color:var(--mid);
+  margin-bottom:1.3rem;
+  line-height:1.85;
+}
+
+.copy strong{color:var(--ink)}
+
+.metrics{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  border-top:1px solid var(--line2);
+  margin-top:3rem;
+}
+
+.metric{
+  padding:1.4rem 1rem 0;
+  border-right:1px solid var(--line);
+}
+
+.metric:last-child{border-right:none}
+
+.metric b{
+  display:block;
+  font-family:var(--serif);
+  font-size:2rem;
+  color:var(--blue);
+  line-height:1;
+  margin-bottom:.5rem;
+}
+
+.metric span{
+  font-family:var(--mono);
+  color:var(--mid);
+  font-size:.66rem;
+  line-height:1.4;
+}
+
+/* CARDS */
+.grid3{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  border:1px solid var(--line2);
+}
+
+.card{
+  padding:2rem;
+  border-right:1px solid var(--line2);
+  border-bottom:1px solid var(--line2);
+  background:rgba(250,250,247,.5);
+}
+
+.card:nth-child(3n){border-right:none}
+.card:nth-last-child(-n+3){border-bottom:none}
+
+.card:hover{background:var(--blue-soft)}
+
+.code{
+  font-family:var(--mono);
+  color:var(--blue);
+  font-size:.7rem;
+  letter-spacing:.05em;
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:1.4rem;
+}
+
+.card h3{
+  font-family:var(--serif);
+  font-weight:400;
+  font-size:1.35rem;
+  line-height:1.3;
+  padding-top:.7rem;
+  border-top:1px solid var(--line2);
+  margin-bottom:.8rem;
+}
+
+.card p{
+  color:var(--mid);
+  font-size:.86rem;
+  line-height:1.7;
+  margin-bottom:1rem;
+}
+
+.meta{
+  font-family:var(--mono);
+  color:var(--mid);
+  font-size:.66rem;
+  line-height:1.6;
+}
+
+/* EXPERIENCE */
+.timeline{
+  border-top:1px solid var(--line2);
+}
+
+.exp{
+  display:grid;
+  grid-template-columns:90px 140px 1fr 190px;
+  gap:2rem;
+  padding:2.2rem 0;
+  border-bottom:1px solid var(--line2);
+}
+
+.exp-code{
+  font-family:var(--mono);
+  color:var(--blue);
+  font-size:.8rem;
+}
+
+.exp-date{
+  font-family:var(--mono);
+  color:var(--mid);
+  font-size:.75rem;
+}
+
+.exp h3{
+  font-family:var(--serif);
+  font-weight:400;
+  font-size:1.35rem;
+  margin-bottom:.35rem;
+}
+
+.company{
+  font-family:var(--mono);
+  color:var(--mid);
+  font-size:.72rem;
+  margin-bottom:.8rem;
+}
+
+.exp p{
+  color:var(--mid);
+  font-size:.9rem;
+  line-height:1.75;
+}
+
+.tags{
+  display:flex;
+  gap:.4rem;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+  align-content:flex-start;
+}
+
+.tag{
+  font-family:var(--mono);
+  font-size:.64rem;
+  color:var(--mid);
+  border:1px solid var(--line2);
+  padding:.25rem .55rem;
+}
+
+/* SKILLS */
+.skills{
+  border-top:1px solid var(--line2);
+}
+
+.skill-row{
+  display:grid;
+  grid-template-columns:240px 1fr;
+  border-bottom:1px solid var(--line2);
+}
+
+.skill-title{
+  font-family:var(--mono);
+  color:var(--blue);
+  font-size:.75rem;
+  padding:1.5rem;
+  border-right:1px solid var(--line2);
+}
+
+.skill-list{
+  display:flex;
+  flex-wrap:wrap;
+  padding:.8rem 0;
+}
+
+.skill-list span{
+  padding:.7rem 1.3rem;
+  border-right:1px solid var(--line);
+  font-size:.85rem;
+}
+
+.learning{color:var(--mid);font-style:italic}
+
+/* CERTS */
+.certs{
+  border-top:1px solid var(--line2);
+}
+
+.cert{
+  display:grid;
+  grid-template-columns:60px 1fr 210px;
+  gap:1rem;
+  padding:1.4rem 0;
+  border-bottom:1px solid var(--line2);
+  align-items:center;
+}
+
+.cert-num{
+  font-family:var(--serif);
+  font-size:1.6rem;
+  color:var(--blue);
+  font-style:italic;
+}
+
+.cert h3{
+  font-size:.95rem;
+  margin-bottom:.2rem;
+}
+
+.cert p{
+  color:var(--mid);
+  font-size:.8rem;
+}
+
+.cert-date{
+  font-family:var(--mono);
+  color:var(--mid);
+  font-size:.72rem;
+  text-align:right;
+}
+
+/* CONTACT */
+.contact{
+  background:var(--ink);
+  color:var(--paper);
+  padding:9rem 4rem;
+}
+
+.contact .label{color:#8FA5F1;border-color:rgba(238,237,231,.2)}
+
+.contact h2{
+  font-size:clamp(2.5rem,6vw,5.4rem);
+  max-width:17ch;
+  line-height:1.05;
+}
+
+.contact h2 em{color:#8FA5F1}
+
+.contact-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:4rem;
+  border-top:1px solid rgba(238,237,231,.15);
+  margin-top:3rem;
+  padding-top:3rem;
+}
+
+.contact p{
+  color:rgba(238,237,231,.58);
+  max-width:44ch;
+}
+
+.contact-links a{
+  display:flex;
+  justify-content:space-between;
+  gap:1rem;
+  padding:1rem 0;
+  border-bottom:1px solid rgba(238,237,231,.15);
+  font-family:var(--mono);
+  font-size:.85rem;
+  text-decoration:none;
+}
+
+.contact-links a span:last-child{
+  color:rgba(238,237,231,.4);
+  text-align:right;
+}
+
+footer{
+  position:relative;
+  z-index:2;
+  background:var(--ink);
+  color:rgba(238,237,231,.35);
+  border-top:1px solid rgba(238,237,231,.1);
+  padding:1.5rem 4rem;
+  display:flex;
+  justify-content:space-between;
+  font-family:var(--mono);
+  font-size:.7rem;
+}
+
+/* REVEAL */
+.reveal{
+  opacity:0;
+  transform:translateY(20px);
+  transition:.7s ease;
+}
+
+.reveal.visible{
+  opacity:1;
+  transform:none;
+}
+
+/* MOBILE */
+.mobile-toggle{display:none}
+
+@media(max-width:1024px){
+  nav{padding:0 1.5rem}
+  .nav-links{display:none}
+  .hero{padding:8.5rem 1.5rem 0}
+  .hero-content{grid-template-columns:1fr}
+  .hero-lottie{display:none}
+  .hero::after{display:none}
+  .hero-mobile-visual{
+    display:block;
+    position:sticky;
+    top:74px;
+    width:150%;
+    height:430px;
+    margin:1.5rem 0 -320px -2rem;
+    overflow:hidden;
+    z-index:0;
+    opacity:0.55;
+    filter:blur(3px);
+    pointer-events:none;
+  }
+  .hero-base{display:none}
+  .hero-mobile-visual dotlottie-wc{
+    width:100%;height:100%;
+  }
+  .hero-mobile-visual::after{
+    content:"";
+    position:absolute;inset:0;
+    background:linear-gradient(180deg,
+      rgba(238,237,231,0.15) 0%,
+      rgba(238,237,231,0) 30%,
+      rgba(238,237,231,0) 60%,
+      rgba(238,237,231,0.95) 100%);
+    pointer-events:none;
+  }
+  section{padding:5rem 1.5rem}
+  .grid3{grid-template-columns:1fr}
+  .card,.card:nth-child(3n),.card:nth-last-child(-n+3){
+    border-right:none;
+    border-bottom:1px solid var(--line2);
+  }
+  .card:last-child{border-bottom:none}
+  .metrics{grid-template-columns:repeat(2,1fr)}
+  .metric:nth-child(2){border-right:none}
+  .exp{grid-template-columns:1fr;gap:.5rem}
+  .tags{justify-content:flex-start}
+  .skill-row{grid-template-columns:1fr}
+  .skill-title{border-right:none;border-bottom:1px solid var(--line2)}
+  .cert{grid-template-columns:40px 1fr}
+  .cert-date{grid-column:2;text-align:left}
+  .contact-grid{grid-template-columns:1fr}
+  footer{flex-direction:column;gap:.5rem;text-align:center}
+}
+
+@media(min-width:1025px){
+  .hero-mobile-visual{display:none}
+}
+
+@media(max-width:640px){
+  h1{font-size:2.6rem;margin-top:1rem}
+  .actions{flex-direction:column;align-items:flex-start}
+  .hero-mobile-visual{height:360px;width:170%;margin-left:-2.5rem}
+  .contact-links a{
+    flex-direction:column;
+  }
+  .contact-links a span:last-child{text-align:left}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .hero-lottie{display:none}
+  .reveal{opacity:1;transform:none}
+}
+</style>
 </head>
+
 <body>
 
-<!-- NAV -->
 <nav>
-  <a href="#hero" class="nav-logo">H.ARABKHABURI</a>
+  <a class="logo" href="#top">ARABKHABURI.H</a>
   <ul class="nav-links">
-    <li><a href="#experience">Expérience</a></li>
-    <li><a href="#competences">Compétences</a></li>
-    <li><a href="#projets">Projets</a></li>
-    <li><a href="#contact">Contact</a></li>
+    <li><a href="#profil"><span>01</span>Profil</a></li>
+    <li><a href="#bim"><span>02</span>BIM</a></li>
+    <li><a href="#experience"><span>03</span>Expérience</a></li>
+    <li><a href="#projets"><span>04</span>Projets</a></li>
+    <li><a href="#contact"><span>05</span>Contact</a></li>
   </ul>
 </nav>
 
-<!-- HERO -->
-<section id="hero">
-  <div class="hero-left">
-    <p class="hero-eyebrow">Architecte · Chef de Projet</p>
-    <h1 class="hero-name">Hossein<br><em>Arabkhaburi</em></h1>
-    <p class="hero-title">De l'architecture à la gestion opérationnelle</p>
-    <p class="hero-desc">
-      Architecte de formation (IUST, 15,33/20), spécialisé en planification, coordination d'équipes et suivi opérationnel de projets techniques d'envergure. Expérience directe sur des chantiers industriels majeurs en Iran, désormais basé à Nancy.
-    </p>
-    <div class="hero-cta">
-      <a href="#contact" class="btn-primary">Me contacter</a>
-      <a href="#experience" class="btn-outline">Voir le parcours</a>
+<header class="hero" id="top">
+  <div class="hero-lottie" aria-hidden="true">
+    <dotlottie-wc
+      id="lottie-desktop"
+      autoplay
+      loop>
+    </dotlottie-wc>
+  </div>
+
+  <div class="hero-meta">
+    <span>NANCY, FRANCE</span>
+    <span>REV. 2026</span>
+    <span>BIM / BTP / PROJECT COORDINATION</span>
+  </div>
+
+  <div class="hero-content">
+    <div>
+      <span class="label">Dossier professionnel — BIM Coordination</span>
+      <h1>Assistant BIM Manager<br>& Coordinateur BIM <em>Junior.</em></h1>
+      <p class="hero-text">
+        Profil architecture et gestion de projet, orienté vers la coordination BIM, la modélisation technique et le suivi de projets de construction. Expérience terrain sur un grand chantier industriel, aujourd'hui mise au service du secteur BTP français.
+      </p>
+      <div class="actions">
+        <a class="btn dark" href="#projets">→ Voir les études de cas</a>
+        <a class="btn" href="#contact">Me contacter</a>
+        <a class="btn" href="Hossein-Arabkhaburi-CV.pdf" download>↓ Télécharger le CV</a>
+      </div>
+
+      <div class="hero-mobile-visual" aria-hidden="true">
+        <dotlottie-wc
+          id="lottie-mobile"
+          autoplay
+          loop>
+        </dotlottie-wc>
+      </div>
     </div>
   </div>
 
-  <div class="hero-stats">
-    <div class="stat-cell">
-      <div class="stat-number">4+</div>
-      <div class="stat-label">Ans d'expérience</div>
-    </div>
-    <div class="stat-cell">
-      <div class="stat-number">15.33</div>
-      <div class="stat-label">Moyenne IUST / 20</div>
-    </div>
-    <div class="stat-cell">
-      <div class="stat-number">2056</div>
-      <div class="stat-label">Participants formés</div>
-    </div>
-    <div class="stat-cell">
-      <div class="stat-number">HSE</div>
-      <div class="stat-label">Certifié sécurité</div>
-    </div>
-  </div>
-</section>
+  <div class="hero-base">ÉCH. 1:100 — MAQUETTE NUMÉRIQUE / NIVEAU 0.00</div>
+</header>
 
-<div class="divider"></div>
-
-<!-- EXPÉRIENCE -->
-<section id="experience">
-  <div class="section-inner">
-    <div class="section-header">
-      <span class="section-tag">01 — Parcours</span>
-      <h2 class="section-title">Expériences professionnelles</h2>
+<section id="profil" class="white">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="idx">01</span>
+      <h2>Profil <em>professionnel</em></h2>
     </div>
 
-    <div class="exp-list">
+    <div class="copy reveal">
+      <p class="lead">
+        Architecte de formation, je construis aujourd'hui mon profil autour de la <em>coordination BIM</em>, de la modélisation technique et de la gestion de projet.
+      </p>
+      <p>
+        Après une licence en architecture à l'Iran University of Science and Technology, mon parcours s'est orienté vers la planification, le contrôle de projet et la coordination d'équipes sur chantier.
+      </p>
+      <p>
+        Mon expérience sur la raffinerie d'Ispahan m'a permis de comprendre les enjeux réels de l'exécution : interfaces techniques, coordination entre disciplines, suivi des délais, qualité des informations et communication entre les acteurs du projet.
+      </p>
+      <p>
+        Basé à Nancy depuis 2024, je souhaite évoluer vers un poste de <strong>Assistant BIM Manager / Coordinateur BIM Junior</strong>, en combinant mes compétences en architecture, modélisation 3D, planification et coordination de projet.
+      </p>
 
-      <div class="exp-item">
-        <div class="exp-meta">
-          <div class="exp-date">Juil. 2023 — Juil. 2024</div>
-          <div class="exp-company">Sacookar Co.<br>Ispahan, Iran</div>
-        </div>
-        <div class="exp-content">
-          <div class="exp-role">Ingénieur Planification & Contrôle de Projet</div>
-          <div class="exp-desc">
-            Pilotage de l'avancement des travaux sur le projet de raffinerie d'Ispahan (gros œuvre, structures béton, tuyauterie). Élaboration et mise à jour des plannings d'exécution, analyse des écarts de délais et reporting à la direction. Coordination entre les équipes techniques multidisciplinaires et la direction de projet.
-          </div>
-          <div class="exp-tags">
-            <span class="tag">Planification</span>
-            <span class="tag">Contrôle de projet</span>
-            <span class="tag">Gros œuvre</span>
-            <span class="tag">Reporting</span>
-            <span class="tag">Coordination technique</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="exp-item">
-        <div class="exp-meta">
-          <div class="exp-date">Nov. 2022 — Mai 2023</div>
-          <div class="exp-company">Asta Engineering<br>Téhéran, Iran</div>
-        </div>
-        <div class="exp-content">
-          <div class="exp-role">Modélisation 3D & Conception</div>
-          <div class="exp-desc">
-            Conception et modélisation 3D de serres industrielles. Réalisation de plans techniques et dossiers d'exécution complets pour la production et le chantier.
-          </div>
-          <div class="exp-tags">
-            <span class="tag">Revit</span>
-            <span class="tag">Rhino</span>
-            <span class="tag">Dossiers d'exécution</span>
-            <span class="tag">Conception technique</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="exp-item">
-        <div class="exp-meta">
-          <div class="exp-date">Sept. — Déc. 2022</div>
-          <div class="exp-company">IUST<br>Téhéran, Iran</div>
-        </div>
-        <div class="exp-content">
-          <div class="exp-role">Assistant d'Enseignement — Gestion de Chantier</div>
-          <div class="exp-desc">
-            Suivi quotidien de chantier et coordination des tâches d'exécution. Support pédagogique aux étudiants en architecture sur les aspects opérationnels de la gestion de chantier.
-          </div>
-          <div class="exp-tags">
-            <span class="tag">Suivi de chantier</span>
-            <span class="tag">Coordination</span>
-            <span class="tag">Pédagogie</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="exp-item">
-        <div class="exp-meta">
-          <div class="exp-date">Mai — Nov. 2020</div>
-          <div class="exp-company">Gam Co<br>Téhéran, Iran</div>
-        </div>
-        <div class="exp-content">
-          <div class="exp-role">Assistant de Chantier</div>
-          <div class="exp-desc">
-            Gestion des opérations quotidiennes sur site. Coordination des tâches et collaboration avec l'équipe d'exécution pour assurer le bon déroulement des travaux.
-          </div>
-          <div class="exp-tags">
-            <span class="tag">Opérations chantier</span>
-            <span class="tag">Travail d'équipe</span>
-            <span class="tag">Suivi terrain</span>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- COMPÉTENCES -->
-<section id="competences">
-  <div class="section-inner">
-    <div class="section-header">
-      <span class="section-tag">02 — Outils</span>
-      <h2 class="section-title">Compétences techniques</h2>
-    </div>
-
-    <div class="skills-grid">
-      <div class="skill-group">
-        <div class="skill-group-title">Modélisation & BIM</div>
-        <div class="skill-item">
-          <span class="skill-name">Revit</span>
-          <div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div>
-        </div>
-        <div class="skill-item">
-          <span class="skill-name">AutoCAD</span>
-          <div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div>
-        </div>
-        <div class="skill-item">
-          <span class="skill-name">Rhino</span>
-          <div class="skill-bar"><div class="skill-fill" style="width:80%"></div></div>
-        </div>
-        <div class="skill-item">
-          <span class="skill-name">Grasshopper</span>
-          <div class="skill-bar"><div class="skill-fill" style="width:70%"></div></div>
-        </div>
-        <div class="skill-item">
-          <span class="skill-name">Blender</span>
-          <div class="skill-bar"><div class="skill-fill" style="width:65%"></div></div>
-        </div>
-      </div>
-
-      <div class="skill-group">
-        <div class="skill-group-title">Visualisation & Graphisme</div>
-        <div class="skill-item">
-          <span class="skill-name">Enscape</span>
-          <div class="skill-bar"><div class="skill-fill" style="width:80%"></div></div>
-        </div>
-        <div class="skill-item">
-          <span class="skill-name">Lumion</span>
-          <div class="skill-bar"><div class="skill-fill" style="width:75%"></div></div>
-        </div>
-        <div class="skill-item">
-          <span class="skill-name">Photoshop</span>
-          <div class="skill-bar"><div class="skill-fill" style="width:80%"></div></div>
-        </div>
-        <div class="skill-item">
-          <span class="skill-name">InDesign</span>
-          <div class="skill-bar"><div class="skill-fill" style="width:75%"></div></div>
-        </div>
-        <div class="skill-item">
-          <span class="skill-name">Premiere</span>
-          <div class="skill-bar"><div class="skill-fill" style="width:60%"></div></div>
-        </div>
-      </div>
-
-      <div class="skill-group">
-        <div class="skill-group-title">Gestion & Management</div>
-        <div class="skill-item">
-          <span class="skill-name">Excel avancé</span>
-          <div class="skill-bar"><div class="skill-fill" style="width:80%"></div></div>
-        </div>
-        <div class="skill-item">
-          <span class="skill-name">Planification chantier</span>
-          <div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div>
-        </div>
-        <div class="skill-item">
-          <span class="skill-name">Reporting</span>
-          <div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div>
-        </div>
-        <div class="skill-item">
-          <span class="skill-name">Coordination équipes</span>
-          <div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div>
-        </div>
-        <div class="skill-item">
-          <span class="skill-name">HSE-MS</span>
-          <div class="skill-bar"><div class="skill-fill" style="width:75%"></div></div>
-        </div>
+      <div class="metrics">
+        <div class="metric"><b>4+</b><span>ANNÉES<br>BTP / CHANTIER</span></div>
+        <div class="metric"><b>1</b><span>PROJET INDUSTRIEL<br>MAJEUR</span></div>
+        <div class="metric"><b>2056</b><span>PARTICIPANTS<br>FORMÉS</span></div>
+        <div class="metric"><b>BIM</b><span>COORDINATION<br>OBJECTIF 2026</span></div>
       </div>
     </div>
   </div>
 </section>
 
-<div class="divider"></div>
-
-<!-- PROJETS -->
-<section id="projets">
-  <div class="section-inner">
-    <div class="section-header">
-      <span class="section-tag">03 — Réalisations</span>
-      <h2 class="section-title">Projets marquants</h2>
+<section id="bim" class="paper">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="idx">02</span>
+      <h2>Approche <em>BIM</em></h2>
     </div>
 
-    <div class="projects-grid">
-      <div class="project-card">
-        <div class="project-type">Industrie · Gestion de projet</div>
-        <h3 class="project-title">Raffinerie d'Ispahan</h3>
-        <p class="project-desc">
-          Suivi et contrôle de l'avancement d'un projet industriel majeur. Planification d'exécution, analyse des écarts et coordination de plusieurs équipes techniques simultanées.
-        </p>
-        <div class="project-meta">Sacookar Co. · 2023–2024</div>
-      </div>
+    <div class="grid3">
+      <article class="card reveal">
+        <div class="code"><span>BIM-01</span><span>MODÉLISATION</span></div>
+        <h3>Modélisation technique & documentation</h3>
+        <p>Création et organisation de modèles 3D avec attention portée aux niveaux, vues, feuilles, familles et documents techniques.</p>
+        <div class="meta">REVIT · RHINO · AUTOCAD · DOCUMENTATION</div>
+      </article>
 
-      <div class="project-card">
-        <div class="project-type">Architecture · Événementiel</div>
-        <h3 class="project-title">Stand — Hôpitaux & Infrastructures</h3>
-        <p class="project-desc">
-          Conception, réalisation et coordination du montage du stand officiel au Salon international Hôpitaux & Infrastructures pour Sahifeh Eskan.
-        </p>
-        <div class="project-meta">Sahifeh Eskan · 2018</div>
-      </div>
+      <article class="card reveal">
+        <div class="code"><span>BIM-02</span><span>COORDINATION</span></div>
+        <h3>Interfaces entre disciplines</h3>
+        <p>Compréhension des interfaces entre architecture, structure, lots techniques et chantier grâce à une expérience terrain.</p>
+        <div class="meta">SYNTHÈSE · INTERFACES · CHANTIER · REPORTING</div>
+      </article>
 
-      <div class="project-card">
-        <div class="project-type">Architecture · Institution</div>
-        <h3 class="project-title">Stand officiel IUST</h3>
-        <p class="project-desc">
-          Conception et construction du stand officiel de l'Université des sciences et technologies d'Iran au Salon national des architectes et employeurs.
-        </p>
-        <div class="project-meta">IUST · 2019</div>
-      </div>
-
-      <div class="project-card">
-        <div class="project-type">Modélisation 3D · Industriel</div>
-        <h3 class="project-title">Serres industrielles</h3>
-        <p class="project-desc">
-          Modélisation 3D complète et réalisation des dossiers d'exécution pour des serres industrielles, de la conception à la documentation technique de production.
-        </p>
-        <div class="project-meta">Asta Engineering · 2022–2023</div>
-      </div>
-
-      <div class="project-card">
-        <div class="project-type">Formation · Management</div>
-        <h3 class="project-title">Programme Isminar — 22 ateliers</h3>
-        <p class="project-desc">
-          Organisation et animation de 22 ateliers (29 heures) sur la plateforme Isminar, ayant réuni 2 056 participants. Gestion complète de la logistique et du contenu.
-        </p>
-        <div class="project-meta">Isminar · 2021–2022</div>
-      </div>
-
-      <div class="project-card">
-        <div class="project-type">Leadership · Académique</div>
-        <h3 class="project-title">Conseil étudiant IUST</h3>
-        <p class="project-desc">
-          Secrétaire général du Conseil étudiant de la faculté d'architecture et secrétaire aux relations publiques du Conseil central de l'IUST. Organisation de voyages d'étude dans six villes.
-        </p>
-        <div class="project-meta">IUST · 2018</div>
-      </div>
+      <article class="card reveal">
+        <div class="code"><span>BIM-03</span><span>MANAGEMENT</span></div>
+        <h3>Données, processus & suivi projet</h3>
+        <p>Structuration des informations projet, suivi des livrables, tableaux de bord et reporting pour faciliter la coordination.</p>
+        <div class="meta">EXCEL · MS PROJECT · WBS · PROJECT CONTROL</div>
+      </article>
     </div>
   </div>
 </section>
 
-<div class="divider"></div>
-
-<!-- CERTIFICATIONS -->
-<section id="certifications">
-  <div class="section-inner">
-    <div class="section-header">
-      <span class="section-tag">04 — Diplômes</span>
-      <h2 class="section-title">Formation & certifications</h2>
+<section id="experience" class="white">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="idx">03</span>
+      <h2>Expérience <em>professionnelle</em></h2>
     </div>
 
-    <div class="cert-list">
-      <div class="cert-item">
-        <div class="cert-icon">🎓</div>
+    <div class="timeline">
+      <article class="exp reveal">
+        <div class="exp-code">EXP-01</div>
+        <div class="exp-date">2023 — 2024</div>
         <div>
-          <div class="cert-title">Licence en Architecture — Bac+4</div>
-          <div class="cert-org">Université des sciences et technologies d'Iran (IUST) · 2017–2022 · Moyenne 15,33/20</div>
+          <h3>Ingénieur Planification & Contrôle de Projet</h3>
+          <div class="company">SACOOKAR CO. — RAFFINERIE D'ISPAHAN, IRAN</div>
+          <p>Suivi de l'avancement des travaux : gros œuvre, structures béton et tuyauterie. Mise à jour des plannings d'exécution, analyse des écarts, reporting projet et coordination entre équipes techniques.</p>
+        </div>
+        <div class="tags">
+          <span class="tag">Planning</span><span class="tag">Coordination</span><span class="tag">Reporting</span><span class="tag">Interfaces</span>
+        </div>
+      </article>
+
+      <article class="exp reveal">
+        <div class="exp-code">EXP-02</div>
+        <div class="exp-date">2022 — 2023</div>
+        <div>
+          <h3>Modélisation 3D & Conception Technique</h3>
+          <div class="company">ASTA ENGINEERING — TÉHÉRAN, IRAN</div>
+          <p>Modélisation 3D de serres industrielles et production de plans techniques pour dossiers d'exécution. Organisation des vues et préparation des documents graphiques.</p>
+        </div>
+        <div class="tags">
+          <span class="tag">Revit</span><span class="tag">3D Modeling</span><span class="tag">Dossier EXE</span>
+        </div>
+      </article>
+
+      <article class="exp reveal">
+        <div class="exp-code">EXP-03</div>
+        <div class="exp-date">2022</div>
+        <div>
+          <h3>Assistant d'Enseignement — Gestion de Chantier</h3>
+          <div class="company">IUST — TÉHÉRAN, IRAN</div>
+          <p>Support pédagogique en gestion de chantier, suivi quotidien des tâches d'exécution et accompagnement des étudiants dans la compréhension des processus de construction.</p>
+        </div>
+        <div class="tags">
+          <span class="tag">Suivi terrain</span><span class="tag">Pédagogie</span>
+        </div>
+      </article>
+
+      <article class="exp reveal">
+        <div class="exp-code">EXP-04</div>
+        <div class="exp-date">2020</div>
+        <div>
+          <h3>Assistant de Chantier</h3>
+          <div class="company">GAM CO. — TÉHÉRAN, IRAN</div>
+          <p>Participation au suivi des opérations quotidiennes sur site, coordination avec l'équipe d'exécution et observation des contraintes réelles de chantier.</p>
+        </div>
+        <div class="tags">
+          <span class="tag">Chantier</span><span class="tag">Exécution</span>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="projets" class="paper">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="idx">04</span>
+      <h2>Études de <em>cas</em></h2>
+    </div>
+
+    <div class="grid3">
+      <article class="card reveal">
+        <div class="code"><span>CASE-01</span><span>2023–24</span></div>
+        <h3>Raffinerie d'Ispahan — Project Control</h3>
+        <p>Suivi planning, analyse des écarts, reporting d'avancement et coordination entre équipes techniques sur un projet industriel complexe.</p>
+        <div class="meta">ROLE · Planning & Project Control<br>OUTILS · MS Project / Excel<br>BIM RELEVANCE · Interfaces, données projet</div>
+      </article>
+
+      <article class="card reveal">
+        <div class="code"><span>CASE-02</span><span>2022–23</span></div>
+        <h3>Serres industrielles — Modélisation 3D</h3>
+        <p>Modélisation 3D, préparation de plans techniques et organisation des documents d'exécution pour des structures industrielles.</p>
+        <div class="meta">ROLE · 3D Modeling / Technical Documentation<br>OUTILS · Revit / Rhino / AutoCAD<br>BIM RELEVANCE · Modèle, vues, feuilles</div>
+      </article>
+
+      <article class="card reveal">
+        <div class="code"><span>CASE-03</span><span>2021–22</span></div>
+        <h3>Programme Isminar — Coordination</h3>
+        <p>Organisation de 22 ateliers professionnels et coordination pédagogique pour 2 056 participants dans le domaine architecture/construction.</p>
+        <div class="meta">ROLE · Coordination / Training Program<br>BIM RELEVANCE · Processus, gestion d'information</div>
+      </article>
+
+      <article class="card reveal">
+        <div class="code"><span>CASE-04</span><span>2017–22</span></div>
+        <h3>Projets universitaires — Architecture</h3>
+        <p>Conception architecturale, représentation graphique, plans, coupes, maquettes et rendus issus de la formation en architecture.</p>
+        <div class="meta">OUTILS · AutoCAD / Revit / Rhino / Adobe Suite</div>
+      </article>
+
+      <article class="card reveal">
+        <div class="code"><span>CASE-05</span><span>2018</span></div>
+        <h3>Stand — Hôpitaux & Infrastructures</h3>
+        <p>Conception et participation au montage d'un stand d'exposition pour le secteur hospitalier et infrastructurel.</p>
+        <div class="meta">CLIENT · Sahifeh Eskan<br>BIM RELEVANCE · Passage conception → exécution</div>
+      </article>
+
+      <article class="card reveal">
+        <div class="code"><span>CASE-06</span><span>2019</span></div>
+        <h3>Stand officiel IUST</h3>
+        <p>Conception d'un espace de présentation pour un salon national réunissant architectes, employeurs et acteurs du secteur.</p>
+        <div class="meta">CLIENT · IUST<br>BIM RELEVANCE · Communication visuelle</div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="competences" class="white">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="idx">05</span>
+      <h2>Compétences <em>techniques</em></h2>
+    </div>
+
+    <div class="skills reveal">
+      <div class="skill-row">
+        <div class="skill-title">BIM & MODÉLISATION</div>
+        <div class="skill-list">
+          <span>Revit</span><span>AutoCAD</span><span>Rhino</span><span>Grasshopper</span><span class="learning">Navisworks — en apprentissage</span><span class="learning">IFC / OpenBIM — notions</span><span class="learning">Autodesk Construction Cloud — en apprentissage</span>
         </div>
       </div>
-      <div class="cert-item">
-        <div class="cert-icon">📋</div>
-        <div>
-          <div class="cert-title">Architecture Design, Execution & Supervision (ADES)</div>
-          <div class="cert-org">Centre d'architecture d'Iran · 220 heures · 2022</div>
+
+      <div class="skill-row">
+        <div class="skill-title">COORDINATION PROJET</div>
+        <div class="skill-list">
+          <span>Planification</span><span>Contrôle de projet</span><span>Coordination technique</span><span>Suivi de chantier</span><span>Reporting</span><span>Construction documentation</span>
         </div>
       </div>
-      <div class="cert-item">
-        <div class="cert-icon">🛡️</div>
-        <div>
-          <div class="cert-title">HSE-MS — Management Hygiène, Sécurité, Environnement</div>
-          <div class="cert-org">Certification professionnelle · 2025</div>
+
+      <div class="skill-row">
+        <div class="skill-title">DATA & DOCUMENTATION</div>
+        <div class="skill-list">
+          <span>Excel avancé</span><span>Microsoft Project</span><span>PowerPoint</span><span>WBS</span><span>Tableaux de bord</span><span>Rapports techniques</span>
         </div>
       </div>
-      <div class="cert-item">
-        <div class="cert-icon">🌐</div>
-        <div>
-          <div class="cert-title">Formation de langue française</div>
-          <div class="cert-org">Université de Lorraine · Nancy · 2024–2025 · Niveau B1 → B2</div>
+
+      <div class="skill-row">
+        <div class="skill-title">RENDU & GRAPHISME</div>
+        <div class="skill-list">
+          <span>Enscape</span><span>Lumion</span><span>Photoshop</span><span>InDesign</span>
+        </div>
+      </div>
+
+      <div class="skill-row">
+        <div class="skill-title">LANGUES</div>
+        <div class="skill-list">
+          <span>Persan — langue maternelle</span><span>Anglais — professionnel</span><span>Français — B1/B2 en progression</span>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<div class="divider"></div>
+<section id="formation" class="paper">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="idx">06</span>
+      <h2>Formation & <em>certifications</em></h2>
+    </div>
 
-<!-- CONTACT -->
-<section id="contact">
-  <div class="section-inner">
-    <h2 class="contact-headline">Construisons<br><em>ensemble.</em></h2>
-    <p class="contact-sub">
-      Disponible pour un stage, une alternance ou une opportunité en gestion de projets BTP en France.
-    </p>
-    <div class="contact-links">
-      <a href="mailto:H.arabkhaburi@gmail.com" class="contact-pill">
-        ✉ H.arabkhaburi@gmail.com
-      </a>
-      <a href="tel:+33650981909" class="contact-pill">
-        ☎ +33 06 50 98 19 09
-      </a>
-      <a href="https://linkedin.com/in/h-arabkhaburi" target="_blank" class="contact-pill">
-        in LinkedIn
-      </a>
+    <div class="certs reveal">
+      <div class="cert">
+        <div class="cert-num">01</div>
+        <div><h3>Licence en Architecture — Bac+4</h3><p>Iran University of Science and Technology · Moyenne 15,33/20</p></div>
+        <div class="cert-date">2017 — 2022</div>
+      </div>
+
+      <div class="cert">
+        <div class="cert-num">02</div>
+        <div><h3>ADES — Design, Execution & Supervision</h3><p>Centre d'architecture d'Iran · 220h</p></div>
+        <div class="cert-date">2022</div>
+      </div>
+
+      <div class="cert">
+        <div class="cert-num">03</div>
+        <div><h3>HSE-MS Certification</h3><p>Technical & Vocational Training Organization</p></div>
+        <div class="cert-date">2025</div>
+      </div>
+
+      <div class="cert">
+        <div class="cert-num">04</div>
+        <div><h3>Formation de langue française</h3><p>Université de Lorraine · B1 vers B2</p></div>
+        <div class="cert-date">2024 — en cours</div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- FOOTER -->
+<section id="contact" class="contact">
+  <div class="wrap">
+    <span class="label">Contact — disponibilité</span>
+    <h2>Disponible pour une mission en <em>BIM / BTP.</em></h2>
+
+    <div class="contact-grid">
+      <p>
+        Disponible pour une alternance, un stage ou un poste junior en BIM Coordination, Assistant BIM Management, modélisation BIM ou gestion de projets de construction en France.
+      </p>
+
+      <div class="contact-links">
+        <a href="mailto:H.arabkhaburi@gmail.com"><span>Email</span><span>H.arabkhaburi@gmail.com →</span></a>
+        <a href="tel:+33650981909"><span>Téléphone</span><span>+33 06 50 98 19 09 →</span></a>
+        <a href="https://linkedin.com/in/h-arabkhaburi" target="_blank"><span>LinkedIn</span><span>h-arabkhaburi →</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
 <footer>
-  <span class="footer-name">© 2026 Hossein Arabkhaburi</span>
-  <span class="footer-location">
-    <span class="location-dot"></span>
-    Nancy, France
-  </span>
+  <span>© 2026 HOSSEIN ARABKHABURI</span>
+  <span>NANCY, FRANCE — BIM PORTFOLIO REV. 2026.07</span>
 </footer>
+
+<script>
+(function(){
+  const LOTTIE_SRC = "https://lottie.host/0963605f-7e63-4dbc-9410-a44fd3f10085/WYggJNhLG7.lottie";
+  const desktopEl = document.getElementById('lottie-desktop');
+  const mobileEl = document.getElementById('lottie-mobile');
+  const mq = window.matchMedia('(max-width: 1024px)');
+
+  function sync(isMobile){
+    if(isMobile){
+      if(mobileEl) mobileEl.setAttribute('src', LOTTIE_SRC);
+      if(desktopEl) desktopEl.removeAttribute('src');
+    } else {
+      if(desktopEl) desktopEl.setAttribute('src', LOTTIE_SRC);
+      if(mobileEl) mobileEl.removeAttribute('src');
+    }
+  }
+
+  sync(mq.matches);
+  mq.addEventListener('change', e => sync(e.matches));
+})();
+
+const observer = new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    }
+  });
+},{threshold:.12});
+
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+const mobileVisual = document.querySelector('.hero-mobile-visual');
+const profilSection = document.querySelector('#profil');
+const visualMQ = window.matchMedia('(max-width: 1024px)');
+
+if(mobileVisual && profilSection){
+  const startBlur = 3, endBlur = 0;
+  const startOpacity = 0.55, endOpacity = 1;
+
+  function updateVisual(){
+    if(!visualMQ.matches) return;
+    const profilTop = profilSection.getBoundingClientRect().top + window.scrollY;
+    const scrollDistance = Math.max(profilTop - window.innerHeight * 0.3, 1);
+    const progress = Math.min(Math.max(window.scrollY / scrollDistance, 0), 1);
+
+    const blur = startBlur + (endBlur - startBlur) * progress;
+    const opacity = startOpacity + (endOpacity - startOpacity) * progress;
+
+    mobileVisual.style.filter = `blur(${blur}px)`;
+    mobileVisual.style.opacity = opacity;
+  }
+
+  updateVisual();
+  window.addEventListener('scroll', updateVisual, {passive:true});
+  window.addEventListener('resize', updateVisual);
+  visualMQ.addEventListener('change', updateVisual);
+}
+</script>
 
 </body>
 </html>
