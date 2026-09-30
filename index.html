@@ -210,12 +210,44 @@ em{font-style:italic;color:var(--blue)}
   flex-wrap:wrap;
 }
 
+.actions-secondary{
+  display:flex;
+  gap:.6rem;
+  flex-wrap:wrap;
+  margin-top:1rem;
+}
+
+.btn-sm{
+  font-family:var(--mono);
+  font-size:.72rem;
+  text-decoration:none;
+  color:var(--mid);
+  padding:.6rem 1rem;
+  border:1px solid var(--line2);
+  border-radius:6px;
+  display:inline-flex;
+  align-items:center;
+  gap:.4rem;
+  transition:.2s;
+}
+
+.btn-sm:hover{
+  border-color:var(--blue);
+  color:var(--blue);
+}
+
+.btn-sm.disabled{
+  opacity:.45;
+  pointer-events:none;
+}
+
 .btn{
   font-family:var(--mono);
   font-size:.82rem;
   text-decoration:none;
   padding:.9rem 1.55rem;
   border:1px solid var(--line2);
+  border-radius:6px;
   display:inline-flex;
   align-items:center;
   gap:.5rem;
@@ -654,6 +686,8 @@ footer{
 @media(max-width:640px){
   h1{font-size:2.6rem;margin-top:1rem}
   .actions{flex-direction:column;align-items:flex-start}
+  .actions-secondary{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}
+  .actions-secondary .btn-sm{justify-content:center}
   .hero-mobile-visual{height:360px;width:170%;margin-left:-2.5rem}
   .contact-links a{
     flex-direction:column;
@@ -699,14 +733,18 @@ footer{
   <div class="hero-content">
     <div>
       <span class="label">Dossier professionnel — BIM Coordination</span>
-      <h1>Assistant BIM Manager<br>& Coordinateur BIM <em>Junior.</em></h1>
+      <h1>Coordinateur BIM <em>Junior.</em></h1>
       <p class="hero-text">
         Profil architecture et gestion de projet, orienté vers la coordination BIM, la modélisation technique et le suivi de projets de construction. Expérience terrain sur un grand chantier industriel, aujourd'hui mise au service du secteur BTP français.
       </p>
       <div class="actions">
         <a class="btn dark" href="#projets">→ Voir les études de cas</a>
-        <a class="btn" href="#contact">Me contacter</a>
-        <a class="btn" href="Hossein-Arabkhaburi-CV.pdf" download>↓ Télécharger le CV</a>
+      </div>
+      <div class="actions-secondary">
+        <a class="btn-sm" href="#contact">Me contacter</a>
+        <a class="btn-sm" href="https://www.linkedin.com/in/h-arabkhaburi" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="btn-sm" href="Hossein-Arabkhaburi-CV.pdf" download>↓ CV</a>
+        <a class="btn-sm disabled" href="#" aria-disabled="true">↓ Portfolio</a>
       </div>
 
       <div class="hero-mobile-visual" aria-hidden="true">
@@ -734,13 +772,16 @@ footer{
         Architecte de formation, je construis aujourd'hui mon profil autour de la <em>coordination BIM</em>, de la modélisation technique et de la gestion de projet.
       </p>
       <p>
-        Après une licence en architecture à l'Iran University of Science and Technology, mon parcours s'est orienté vers la planification, le contrôle de projet et la coordination d'équipes sur chantier.
+        Passionné de mathématiques et de géométrie depuis le lycée (filière mathématiques-physique, olympiades de mathématiques et d'informatique), j'ai développé très tôt une vision spatiale forte, ce qui m'a naturellement conduit vers l'architecture. Pendant mes études à l'Iran University of Science and Technology, j'ai découvert le plaisir de coder appliqué à la conception — Revit, Rhino, Grasshopper, Arduino — un intérêt qui n'a fait que se renforcer depuis.
       </p>
       <p>
         Mon expérience sur la raffinerie d'Ispahan m'a permis de comprendre les enjeux réels de l'exécution : interfaces techniques, coordination entre disciplines, suivi des délais, qualité des informations et communication entre les acteurs du projet.
       </p>
       <p>
-        Basé à Nancy depuis 2024, je souhaite évoluer vers un poste de <strong>Assistant BIM Manager / Coordinateur BIM Junior</strong>, en combinant mes compétences en architecture, modélisation 3D, planification et coordination de projet.
+        J'aime particulièrement le travail par projet : structurer, planifier et coordonner des équipes jusqu'à la livraison. C'est une aptitude que mon entourage professionnel et universitaire me reconnaît régulièrement, et qui rejoint naturellement mon intérêt sincère pour le BIM — bien au-delà d'une simple reconversion stratégique.
+      </p>
+      <p>
+        Basé à Nancy depuis 2024, je suis actuellement des cours de français et j'assiste à certains enseignements de l'IAE en parallèle de mes démarches, avec l'objectif d'évoluer vers un poste de <strong>Assistant BIM Manager / Coordinateur BIM Junior</strong>, en combinant mes compétences en architecture, modélisation 3D, planification et coordination de projet.
       </p>
 
       <div class="metrics">
@@ -871,31 +912,10 @@ footer{
       </article>
 
       <article class="card reveal">
-        <div class="code"><span>CASE-03</span><span>2021–22</span></div>
-        <h3>Programme Isminar — Coordination</h3>
-        <p>Organisation de 22 ateliers professionnels et coordination pédagogique pour 2 056 participants dans le domaine architecture/construction.</p>
-        <div class="meta">ROLE · Coordination / Training Program<br>BIM RELEVANCE · Processus, gestion d'information</div>
-      </article>
-
-      <article class="card reveal">
-        <div class="code"><span>CASE-04</span><span>2017–22</span></div>
-        <h3>Projets universitaires — Architecture</h3>
-        <p>Conception architecturale, représentation graphique, plans, coupes, maquettes et rendus issus de la formation en architecture.</p>
-        <div class="meta">OUTILS · AutoCAD / Revit / Rhino / Adobe Suite</div>
-      </article>
-
-      <article class="card reveal">
-        <div class="code"><span>CASE-05</span><span>2018</span></div>
-        <h3>Stand — Hôpitaux & Infrastructures</h3>
-        <p>Conception et participation au montage d'un stand d'exposition pour le secteur hospitalier et infrastructurel.</p>
-        <div class="meta">CLIENT · Sahifeh Eskan<br>BIM RELEVANCE · Passage conception → exécution</div>
-      </article>
-
-      <article class="card reveal">
-        <div class="code"><span>CASE-06</span><span>2019</span></div>
-        <h3>Stand officiel IUST</h3>
-        <p>Conception d'un espace de présentation pour un salon national réunissant architectes, employeurs et acteurs du secteur.</p>
-        <div class="meta">CLIENT · IUST<br>BIM RELEVANCE · Communication visuelle</div>
+        <div class="code"><span>CASE-03</span><span>Projet de diplôme</span></div>
+        <h3>Agritourisme — Centre de tourisme durable</h3>
+        <p>Projet de fin d'études : conception d'un centre d'agritourisme sur un site étendu, avec un programme mixte regroupant plusieurs usages complémentaires.</p>
+        <div class="meta">RÔLE · Conception architecturale<br>DÉTAILS & VISUELS · à venir</div>
       </article>
     </div>
   </div>
