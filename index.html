@@ -633,12 +633,15 @@ footer{
   .hero-content{grid-template-columns:1fr}
   .hero-lottie{display:none}
   .hero::after{display:none}
+  .hero-mobile-wrap{position:relative;margin-bottom:3rem}
+  .hero-fg{position:relative}
   .hero-mobile-visual{
     display:block;
-    position:relative;
+    position:absolute;
+    top:0;
+    left:-2rem;
     width:150%;
-    height:430px;
-    margin:1.5rem 0 1.5rem -2rem;
+    height:100%;
     overflow:hidden;
     z-index:0;
     opacity:0.55;
@@ -687,7 +690,7 @@ footer{
   .actions{flex-direction:column;align-items:flex-start}
   .actions-secondary{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}
   .actions-secondary .btn-sm{justify-content:center}
-  .hero-mobile-visual{height:360px;width:170%;margin-left:-2.5rem}
+  .hero-mobile-visual{width:170%;left:-2.5rem}
   .contact-links a{
     flex-direction:column;
   }
@@ -704,7 +707,7 @@ footer{
 <body>
 
 <nav>
-  <a class="logo" href="#top">ARABKHABURI.H</a>
+  <a class="logo" href="#top">hossein-arabkhaburi.fr(v3)</a>
   <ul class="nav-links">
     <li><a href="#profil"><span>01</span>Profil</a></li>
     <li><a href="#bim"><span>02</span>BIM</a></li>
@@ -730,28 +733,29 @@ footer{
   </div>
 
   <div class="hero-content">
-    <div>
-      <span class="label">Dossier professionnel — BIM Coordination</span>
-      <h1>Coordinateur BIM <em>Junior.</em></h1>
-      <p class="hero-text">
-        Profil architecture et gestion de projet, orienté vers la coordination BIM, la modélisation technique et le suivi de projets de construction. Expérience terrain sur un grand chantier industriel, aujourd'hui mise au service du secteur BTP français.
-      </p>
-      <div class="actions">
-        <a class="btn dark" href="#projets">→ Voir les études de cas</a>
-      </div>
-      <div class="actions-secondary">
-        <a class="btn-sm" href="#contact">Me contacter</a>
-        <a class="btn-sm" href="https://www.linkedin.com/in/h-arabkhaburi" target="_blank" rel="noopener">LinkedIn</a>
-        <a class="btn-sm" href="Hossein-Arabkhaburi-CV.pdf" download>↓ CV</a>
-        <a class="btn-sm disabled" href="#" aria-disabled="true">↓ Portfolio</a>
-      </div>
-
+    <div class="hero-mobile-wrap">
       <div class="hero-mobile-visual" aria-hidden="true">
         <dotlottie-wc
           id="lottie-mobile"
           autoplay
           loop>
         </dotlottie-wc>
+      </div>
+      <div class="hero-fg">
+        <span class="label">Dossier professionnel — BIM Coordination</span>
+        <h1>Coordinateur BIM <em>Junior.</em></h1>
+        <p class="hero-text">
+          Profil architecture et gestion de projet, orienté vers la coordination BIM, la modélisation technique et le suivi de projets de construction. Expérience terrain sur un grand chantier industriel, aujourd'hui mise au service du secteur BTP français.
+        </p>
+        <div class="actions">
+          <a class="btn dark" href="#projets">→ Voir les études de cas</a>
+        </div>
+        <div class="actions-secondary">
+          <a class="btn-sm" href="#contact">Me contacter</a>
+          <a class="btn-sm" href="https://www.linkedin.com/in/h-arabkhaburi" target="_blank" rel="noopener">LinkedIn</a>
+          <a class="btn-sm" href="Hossein-Arabkhaburi-CV.pdf" download>↓ CV</a>
+          <a class="btn-sm disabled" href="#" aria-disabled="true">↓ Portfolio</a>
+        </div>
       </div>
     </div>
   </div>
@@ -1062,8 +1066,8 @@ const profilSection = document.querySelector('#profil');
 const visualMQ = window.matchMedia('(max-width: 1024px)');
 
 if(mobileVisual && profilSection){
-  const startBlur = 3, endBlur = 0;
-  const startOpacity = 0.55, endOpacity = 1;
+  const startBlur = 4, endBlur = 2;
+  const startOpacity = 0.4, endOpacity = 0.6;
 
   function updateVisual(){
     if(!visualMQ.matches) return;
