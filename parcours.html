@@ -131,20 +131,14 @@ h2{
   align-items:start;
 }
 
-.photo-slot{
+.portrait{
+  display:block;
   width:100%;
   aspect-ratio:3/4;
-  background:var(--white);
+  object-fit:cover;
+  object-position:center 20%;
   border:1px solid var(--line2);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-family:var(--mono);
-  font-size:.7rem;
-  color:var(--mid);
-  text-align:center;
-  padding:1.5rem;
-  line-height:1.6;
+  background:var(--white);
 }
 
 .lead{
@@ -217,7 +211,7 @@ h2{
   section{padding:9rem 1.5rem 4rem}
   nav{padding:0 1.5rem}
   .parcours-layout{grid-template-columns:1fr;gap:2rem}
-  .photo-slot{max-width:220px;margin:0 auto}
+  .portrait{max-width:240px;margin:0 auto}
 }
 </style>
 </head>
@@ -236,7 +230,7 @@ h2{
     </div>
 
     <div class="parcours-layout">
-      <div class="photo-slot">Photo à venir</div>
+      <img class="portrait" src="images/portrait.jpg" alt="Portrait de Hossein Arabkhaburi">
 
       <div>
         <p class="lead">
