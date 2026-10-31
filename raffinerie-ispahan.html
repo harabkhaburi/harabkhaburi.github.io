@@ -173,8 +173,63 @@ h2{
 .white{background:var(--white)}
 .paper{background:var(--paper)}
 
+/* COVER PHOTO */
+.cover{
+  position:relative;
+  z-index:2;
+  margin-top:74px;
+  height:min(78vh,760px);
+  min-height:440px;
+  overflow:hidden;
+  background:var(--ink);
+  color:var(--paper);
+}
+
+.cover img{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center 40%;
+  animation:coverZoom 14s ease-out both;
+}
+
+@keyframes coverZoom{from{transform:scale(1.08)}to{transform:scale(1)}}
+
+.cover::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg, rgba(27,27,24,0) 25%, rgba(27,27,24,.5) 50%, rgba(27,27,24,.9) 100%);
+}
+
+.cover-text{
+  position:absolute;
+  z-index:1;
+  left:0;right:0;bottom:0;
+  padding:0 4rem 3.5rem;
+}
+
+.cover .label{color:#8FA5F1;border-color:rgba(238,237,231,.3)}
+.cover h1{margin-bottom:0;max-width:18ch;text-shadow:0 2px 24px rgba(0,0,0,.35)}
+.cover h1 em{color:#8FA5F1}
+
+.cover-credit{
+  position:absolute;
+  z-index:1;
+  top:1rem;right:1.2rem;
+  font-family:var(--mono);
+  font-size:.6rem;
+  letter-spacing:.06em;
+  color:rgba(238,237,231,.9);
+  background:rgba(27,27,24,.55);
+  padding:.25rem .5rem;
+}
+
 /* HERO */
-.hero{padding-top:10rem}
+.hero{padding-top:4rem}
+.hero .facts{margin-top:2.5rem}
 
 .facts{
   display:grid;
@@ -498,7 +553,9 @@ footer{
 @media(max-width:900px){
   nav{padding:0 1.5rem}
   section{padding:4.5rem 1.5rem}
-  .hero{padding-top:8rem}
+  .cover{height:62vh;min-height:380px}
+  .cover-text{padding:0 1.5rem 2.2rem}
+  .hero{padding-top:3rem}
   .facts{grid-template-columns:1fr 1fr}
   .fact:nth-child(2){border-right:none}
   .fact:nth-child(-n+2){border-bottom:1px solid var(--line)}
@@ -520,6 +577,7 @@ footer{
 
 @media(prefers-reduced-motion:reduce){
   .step,.proc{opacity:1;transform:none;transition:none}
+  .cover img{animation:none}
 }
 </style>
 </head>
@@ -531,11 +589,21 @@ footer{
   <div class="read-progress" id="readProgress"></div>
 </nav>
 
+<!-- COVER -->
+<header class="cover">
+  <img src="images/raffinerie/chantier-hero.jpg" alt="Chantier de l'unité RHU : grues, colonnes et ferraillage des fondations, raffinerie d'Ispahan" width="2400" height="1350" fetchpriority="high">
+  <span class="cover-credit">CHANTIER RHU — AOÛT 2023</span>
+  <div class="cover-text">
+    <div class="wrap">
+      <span class="label">CASE-01 — Étude de cas</span>
+      <h1>Raffinerie d'Ispahan <em>— réseaux enterrés &amp; contrôle de projet.</em></h1>
+    </div>
+  </div>
+</header>
+
 <!-- HERO -->
 <section class="hero paper">
   <div class="wrap">
-    <span class="label">CASE-01 — Étude de cas</span>
-    <h1>Raffinerie d'Ispahan <em>— réseaux enterrés &amp; contrôle de projet.</em></h1>
     <p class="lead">
       Arrivé sur un lot en fort retard, j'ai participé à le remettre sur les rails en rendant le chantier lisible pour tous : ce qui peut avancer, ce qui est bloqué, et pourquoi.
     </p>

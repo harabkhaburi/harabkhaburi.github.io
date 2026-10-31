@@ -416,18 +416,68 @@ h2{
   margin-bottom:1rem;
 }
 
-.card-link{
-  display:inline-block;
-  margin-top:1.2rem;
-  font-family:var(--mono);
-  font-size:.74rem;
-  color:var(--blue);
-  text-decoration:none;
-  border-bottom:1px solid currentColor;
-  padding-bottom:.1rem;
+.card{display:flex;flex-direction:column}
+
+.card-media{
+  position:relative;
+  margin:0 0 1.4rem;
+  aspect-ratio:16/10;
+  overflow:hidden;
+  border:1px solid var(--line2);
+  background:var(--line);
 }
 
-.card-link:hover{color:var(--ink)}
+.card-media img{
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transition:transform .6s ease;
+}
+
+.card:hover .card-media img{transform:scale(1.04)}
+
+.card-media figcaption{
+  position:absolute;
+  left:.6rem;bottom:.6rem;
+  font-family:var(--mono);
+  font-size:.6rem;
+  letter-spacing:.06em;
+  color:var(--paper);
+  background:rgba(27,27,24,.72);
+  padding:.25rem .5rem;
+}
+
+/* Case-study button */
+.card-link{
+  align-self:flex-start;
+  margin-top:auto;
+  display:inline-flex;
+  align-items:center;
+  gap:.7rem;
+  font-family:var(--mono);
+  font-size:.8rem;
+  font-weight:500;
+  color:var(--paper);
+  background:var(--blue);
+  text-decoration:none;
+  padding:.85rem 1.3rem;
+  border-radius:6px;
+  transition:background .2s, box-shadow .2s;
+}
+
+.card-link .arrow{transition:transform .2s}
+
+.card-link:hover{
+  background:var(--ink);
+  box-shadow:0 6px 18px rgba(37,71,168,.25);
+}
+
+.card-link:hover .arrow{transform:translateX(4px)}
+
+.card-link:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+
+.card .meta{margin-bottom:1.6rem}
 
 .meta{
   font-family:var(--mono);
@@ -915,10 +965,14 @@ footer{
     <div class="grid3">
       <article class="card reveal">
         <div class="code"><span>CASE-01</span><span>2023–24</span></div>
+        <figure class="card-media">
+          <img src="images/raffinerie/vue-aerienne.jpg" alt="Vue aérienne du chantier de l'unité RHU, raffinerie d'Ispahan" width="1600" height="1067" loading="lazy" decoding="async">
+          <figcaption>VUE AÉRIENNE — UNITÉ RHU</figcaption>
+        </figure>
         <h3>Raffinerie d'Ispahan — Réseaux enterrés & contrôle de projet</h3>
         <p>Unité d'hydrotraitement des résidus (RHU). Reprise d'un lot en retard : rendre le chantier lisible pour tous, identifier les fronts de travail ouverts et documenter par écrit les blocages liés au maître d'ouvrage (plans, matériel, montage d'équipements). Ce travail a contribué à la prolongation du contrat et à l'attribution d'un nouveau projet (RFCC) à l'entreprise.</p>
         <div class="meta">RÔLE · Planification & contrôle de projet<br>VOLUME · ~52 000 pouces-diamètre · ~9 000 raccords<br>RÉSULTAT · ~40 000 pouces-diamètre réalisés · record de 1 700 m³ de béton en une journée<br>OUTILS · Excel / AutoCAD / Primavera P6</div>
-        <a class="card-link" href="raffinerie-ispahan.html">→ Lire l'étude de cas</a>
+        <a class="card-link" href="raffinerie-ispahan.html">Lire l'étude de cas <span class="arrow" aria-hidden="true">→</span></a>
       </article>
 
       <article class="card reveal">
