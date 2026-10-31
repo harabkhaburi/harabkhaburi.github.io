@@ -151,6 +151,16 @@ h2{
   line-height:1.6;
 }
 
+.portrait{
+  display:block;
+  width:100%;
+  aspect-ratio:3/4;
+  object-fit:cover;
+  object-position:center 20%;
+  border:1px solid var(--line2);
+  background:var(--white);
+}
+
 .lead{
   font-family:var(--serif);
   font-size:1.5rem;
@@ -222,6 +232,7 @@ h2{
   nav{padding:0 1.5rem}
   .parcours-layout{grid-template-columns:1fr;gap:2rem}
   .photo-slot{max-width:220px;margin:0 auto}
+  .portrait{max-width:240px;margin:0 auto}
 }
 
 /* Headings: Bricolage Grotesque (no italic) - emphasis by weight instead */
@@ -233,7 +244,7 @@ h1 em,h2 em,h3 em{font-weight:300}
 <body>
 
 <nav>
-  <a class="logo" href="index.html">hossein-arabkhaburi.fr(v14)</a>
+  <a class="logo" href="index.html">hossein-arabkhaburi.fr(v15)</a>
   <a class="back-link" href="index.html#profil">← Retour au site</a>
 </nav>
 
@@ -245,7 +256,7 @@ h1 em,h2 em,h3 em{font-weight:300}
     </div>
 
     <div class="parcours-layout">
-      <div class="photo-slot">Photo à venir</div>
+      <img class="portrait" src="images/portrait.jpg" alt="Portrait de Hossein Arabkhaburi">
 
       <div>
         <p class="lead">
