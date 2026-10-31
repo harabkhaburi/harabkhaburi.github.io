@@ -227,6 +227,11 @@ h2{
 
 .btn:hover{border-color:var(--ink);color:var(--blue)}
 
+.btn-row{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:3rem}
+.btn-row .btn{margin-top:0;background:var(--white);color:var(--ink)}
+.btn.soft{background:#DDE3F5;color:var(--blue);border-color:#C3CDEE}
+.btn.soft:hover{background:var(--blue);border-color:var(--blue);color:var(--white)}
+
 @media(max-width:800px){
   section{padding:9rem 1.5rem 4rem}
   nav{padding:0 1.5rem}
@@ -244,7 +249,7 @@ h1 em,h2 em,h3 em{font-weight:300}
 <body>
 
 <nav>
-  <a class="logo" href="index.html">hossein-arabkhaburi.fr(v15)</a>
+  <a class="logo" href="index.html">hossein-arabkhaburi.fr(v16)</a>
   <a class="back-link" href="index.html#profil">← Retour au site</a>
 </nav>
 
@@ -284,7 +289,12 @@ h1 em,h2 em,h3 em{font-weight:300}
           <div class="metric"><b>B2</b><span>NIVEAU DE<br>FRANÇAIS</span></div>
         </div>
 
-        <a class="btn" href="index.html#projets">→ Voir les études de cas</a>
+        <div class="btn-row">
+          <a class="btn soft" href="index.html#projets">→ Voir les études de cas</a>
+          <a class="btn" href="Hossein-Arabkhaburi-CV.pdf" download>↓ CV</a>
+          <a class="btn" href="portfolio.html">→ Portfolio</a>
+          <a class="btn" href="index.html#contact">Me contacter</a>
+        </div>
       </div>
     </div>
   </div>
