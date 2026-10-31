@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Raffinerie d'Ispahan — Étude de cas — Hossein Arabkhaburi</title>
+<meta name="description" content="Étude de cas : reprise du lot des réseaux enterrés et contrôle de projet sur l'unité RHU de la raffinerie d'Ispahan (2023–2024)." />
+
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,400..500&family=Space+Grotesk:wght@300..700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --paper:#EEEDE7;
+  --ink:#1B1B18;
+  --blue:#2547A8;
+  --blue-soft:#DDE3F5;
+  --mid:#6E6C63;
+  --white:#FAFAF7;
+  --line:rgba(27,27,24,.12);
+  --line2:rgba(27,27,24,.24);
+  --serif:'Fraunces',Georgia,serif;
+  --sans:'Space Grotesk',system-ui,sans-serif;
+  --mono:'JetBrains Mono',monospace;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+
+body{
+  font-family:var(--sans);
+  background:var(--paper);
+  color:var(--ink);
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size:64px 64px;
+  opacity:.45;
+}
+
+a{color:inherit}
+em{font-style:italic;color:var(--blue)}
+
+/* NAV + reading progress */
+nav{
+  position:fixed;
+  top:0;left:0;right:0;
+  z-index:50;
+  height:74px;
+  padding:0 4rem;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  background:rgba(238,237,231,.88);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line2);
+}
+
+.read-progress{
+  position:absolute;
+  left:0;bottom:-1px;
+  height:2px;
+  width:100%;
+  background:var(--blue);
+  transform-origin:left;
+  transform:scaleX(0);
+}
+
+.logo{
+  font-family:var(--mono);
+  font-size:.78rem;
+  text-decoration:none;
+  display:flex;
+  gap:.65rem;
+  align-items:center;
+  letter-spacing:.03em;
+}
+
+.logo::before{
+  content:"";
+  width:8px;height:8px;
+  background:var(--blue);
+}
+
+.back-link{
+  font-family:var(--mono);
+  font-size:.74rem;
+  color:var(--mid);
+  text-decoration:none;
+}
+.back-link:hover{color:var(--blue)}
+
+section{
+  position:relative;
+  z-index:2;
+  padding:6rem 4rem;
+}
+
+.wrap{max-width:1140px;margin:auto}
+
+.label{
+  display:inline-block;
+  font-family:var(--mono);
+  font-size:.7rem;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:var(--blue);
+  border-bottom:1px solid var(--line2);
+  padding-bottom:.75rem;
+  margin-bottom:1.2rem;
+}
+
+h1{
+  font-family:var(--serif);
+  font-weight:400;
+  font-size:clamp(2.6rem,6vw,5rem);
+  line-height:1.03;
+  letter-spacing:-.02em;
+  margin-bottom:1.5rem;
+}
+
+h2{
+  font-family:var(--serif);
+  font-weight:400;
+  font-size:clamp(1.9rem,3.2vw,2.8rem);
+  line-height:1.15;
+}
+
+.section-head{
+  display:flex;
+  gap:1.5rem;
+  align-items:baseline;
+  padding-bottom:1.5rem;
+  margin-bottom:3rem;
+  border-bottom:1px solid var(--line2);
+}
+
+.idx{
+  font-family:var(--mono);
+  color:var(--blue);
+  font-size:.85rem;
+}
+
+.lead{
+  font-family:var(--serif);
+  font-size:1.35rem;
+  line-height:1.5;
+  max-width:62ch;
+  color:var(--ink);
+}
+
+.copy p{
+  color:var(--mid);
+  line-height:1.85;
+  margin-bottom:1.1rem;
+  max-width:70ch;
+}
+.copy strong{color:var(--ink)}
+
+.white{background:var(--white)}
+.paper{background:var(--paper)}
+
+/* HERO */
+.hero{padding-top:10rem}
+
+.facts{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  border-top:1px solid var(--line2);
+  border-bottom:1px solid var(--line2);
+  margin-top:3rem;
+}
+
+.fact{
+  padding:1.2rem 1rem;
+  border-right:1px solid var(--line);
+}
+.fact:last-child{border-right:none}
+
+.fact dt{
+  font-family:var(--mono);
+  font-size:.64rem;
+  letter-spacing:.08em;
+  color:var(--blue);
+  text-transform:uppercase;
+  margin-bottom:.35rem;
+}
+
+.fact dd{font-size:.9rem}
+
+/* METRICS */
+.metrics{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  border:1px solid var(--line2);
+}
+
+.metric{
+  padding:2rem 1.4rem;
+  border-right:1px solid var(--line2);
+  background:rgba(250,250,247,.5);
+}
+.metric:last-child{border-right:none}
+
+.metric b{
+  display:block;
+  font-family:var(--serif);
+  font-weight:400;
+  font-size:clamp(1.9rem,3vw,2.6rem);
+  color:var(--blue);
+  line-height:1;
+  margin-bottom:.7rem;
+  font-variant-numeric:tabular-nums;
+}
+
+.metric span{
+  font-family:var(--mono);
+  font-size:.66rem;
+  color:var(--mid);
+  line-height:1.5;
+  text-transform:uppercase;
+  letter-spacing:.04em;
+}
+
+.note{
+  font-family:var(--mono);
+  font-size:.66rem;
+  color:var(--mid);
+  margin-top:1rem;
+}
+
+/* ROADMAP */
+.roadmap{
+  position:relative;
+  padding-left:0;
+}
+
+.track{
+  position:absolute;
+  left:150px;
+  top:.6rem;
+  bottom:.6rem;
+  width:2px;
+  background:var(--line2);
+}
+
+.track-fill{
+  position:absolute;
+  left:0;top:0;
+  width:100%;
+  height:100%;
+  background:var(--blue);
+  transform-origin:top;
+  transform:scaleY(0);
+}
+
+.step{
+  position:relative;
+  display:grid;
+  grid-template-columns:150px 1fr;
+  gap:0 3rem;
+  padding:0 0 3.6rem;
+  opacity:.25;
+  transform:translateY(24px);
+  transition:opacity .6s ease, transform .6s ease;
+}
+
+.step:last-child{padding-bottom:0}
+
+.step.seen{opacity:1;transform:none}
+
+.step-date{
+  font-family:var(--mono);
+  font-size:.72rem;
+  color:var(--mid);
+  padding-top:.35rem;
+  padding-right:2rem;
+  text-align:right;
+  line-height:1.4;
+}
+
+.step-dot{
+  position:absolute;
+  left:150px;
+  top:.55rem;
+  width:15px;height:15px;
+  margin-left:-6.5px;
+  border:2px solid var(--line2);
+  background:var(--paper);
+  border-radius:50%;
+  transition:background .3s, border-color .3s, transform .3s;
+}
+
+.step.active .step-dot,
+.step.passed .step-dot{
+  border-color:var(--blue);
+  background:var(--blue);
+}
+
+.step.active .step-dot{transform:scale(1.25)}
+
+.step-body{padding-left:.5rem}
+
+.step-code{
+  font-family:var(--mono);
+  font-size:.66rem;
+  letter-spacing:.08em;
+  color:var(--blue);
+  margin-bottom:.35rem;
+}
+
+.step h3{
+  font-family:var(--serif);
+  font-weight:400;
+  font-size:1.45rem;
+  line-height:1.25;
+  margin-bottom:.7rem;
+}
+
+.step p{
+  color:var(--mid);
+  line-height:1.8;
+  max-width:62ch;
+}
+
+.step ul{
+  list-style:none;
+  margin-top:.8rem;
+  display:flex;
+  flex-wrap:wrap;
+  gap:.4rem;
+}
+
+.step li{
+  font-family:var(--mono);
+  font-size:.64rem;
+  color:var(--mid);
+  border:1px solid var(--line2);
+  padding:.25rem .55rem;
+}
+
+/* PIPELINE PROCESS */
+.process{
+  display:grid;
+  grid-template-columns:repeat(7,1fr);
+  border:1px solid var(--line2);
+  counter-reset:proc;
+}
+
+.proc{
+  position:relative;
+  padding:1.4rem 1rem 1.6rem;
+  border-right:1px solid var(--line2);
+  background:rgba(250,250,247,.5);
+  opacity:.2;
+  transition:opacity .5s ease, background .5s ease;
+}
+.proc:last-child{border-right:none}
+.proc.seen{opacity:1}
+.proc:hover{background:var(--blue-soft)}
+
+.proc-n{
+  font-family:var(--serif);
+  font-style:italic;
+  color:var(--blue);
+  font-size:1.5rem;
+  line-height:1;
+  margin-bottom:.8rem;
+}
+
+.proc h4{
+  font-size:.86rem;
+  font-weight:600;
+  line-height:1.3;
+  margin-bottom:.4rem;
+}
+
+.proc p{
+  font-size:.76rem;
+  color:var(--mid);
+  line-height:1.55;
+}
+
+.proc .check{
+  display:inline-block;
+  margin-top:.6rem;
+  font-family:var(--mono);
+  font-size:.6rem;
+  color:var(--blue);
+  border:1px solid var(--blue);
+  padding:.1rem .4rem;
+}
+
+/* TWO COLUMNS */
+.cols{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:3rem;
+}
+
+.block{
+  border-top:1px solid var(--line2);
+  padding-top:1.2rem;
+}
+
+.block h3{
+  font-family:var(--mono);
+  font-size:.72rem;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:var(--blue);
+  margin-bottom:.9rem;
+}
+
+.block ul{list-style:none}
+
+.block li{
+  padding:.7rem 0;
+  border-bottom:1px solid var(--line);
+  color:var(--mid);
+  font-size:.92rem;
+  line-height:1.6;
+}
+
+.block li strong{color:var(--ink);font-weight:500}
+
+.tools{
+  display:flex;
+  flex-wrap:wrap;
+  gap:.5rem;
+  margin-top:.4rem;
+}
+
+.tools span{
+  font-family:var(--mono);
+  font-size:.75rem;
+  border:1px solid var(--line2);
+  padding:.45rem .8rem;
+}
+
+/* CTA + footer */
+.cta{
+  background:var(--ink);
+  color:var(--paper);
+  padding:6rem 4rem;
+}
+.cta h2{max-width:22ch}
+.cta h2 em{color:#8FA5F1}
+.cta .label{color:#8FA5F1;border-color:rgba(238,237,231,.2)}
+
+.cta-actions{
+  display:flex;
+  gap:.8rem;
+  flex-wrap:wrap;
+  margin-top:2.5rem;
+}
+
+.btn{
+  font-family:var(--mono);
+  font-size:.8rem;
+  text-decoration:none;
+  padding:.85rem 1.4rem;
+  border:1px solid rgba(238,237,231,.3);
+  border-radius:6px;
+  transition:.2s;
+}
+.btn:hover{border-color:#8FA5F1;color:#8FA5F1}
+.btn.light{background:var(--paper);color:var(--ink);border-color:var(--paper)}
+.btn.light:hover{background:#8FA5F1;border-color:#8FA5F1;color:var(--ink)}
+
+footer{
+  position:relative;
+  z-index:2;
+  background:var(--ink);
+  color:rgba(238,237,231,.35);
+  border-top:1px solid rgba(238,237,231,.1);
+  padding:1.5rem 4rem;
+  display:flex;
+  justify-content:space-between;
+  font-family:var(--mono);
+  font-size:.7rem;
+}
+
+/* MOBILE */
+@media(max-width:900px){
+  nav{padding:0 1.5rem}
+  section{padding:4.5rem 1.5rem}
+  .hero{padding-top:8rem}
+  .facts{grid-template-columns:1fr 1fr}
+  .fact:nth-child(2){border-right:none}
+  .fact:nth-child(-n+2){border-bottom:1px solid var(--line)}
+  .metrics{grid-template-columns:1fr 1fr}
+  .metric:nth-child(2){border-right:none}
+  .metric:nth-child(-n+2){border-bottom:1px solid var(--line2)}
+  .track,.step-dot{left:7px}
+  .step{grid-template-columns:1fr;padding-left:2.2rem;padding-bottom:2.6rem}
+  .step-date{text-align:left;padding:0 0 .3rem}
+  .step-body{padding-left:0}
+  .process{grid-template-columns:1fr}
+  .proc{border-right:none;border-bottom:1px solid var(--line2);display:grid;grid-template-columns:3rem 1fr;gap:0 .6rem}
+  .proc:last-child{border-bottom:none}
+  .proc-n{grid-row:span 3;margin:0}
+  .cols{grid-template-columns:1fr;gap:2rem}
+  .cta{padding:4.5rem 1.5rem}
+  footer{flex-direction:column;gap:.5rem;text-align:center;padding:1.5rem}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .step,.proc{opacity:1;transform:none;transition:none}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="index.html">hossein-arabkhaburi.fr</a>
+  <a class="back-link" href="index.html#projets">← Études de cas</a>
+  <div class="read-progress" id="readProgress"></div>
+</nav>
+
+<!-- HERO -->
+<section class="hero paper">
+  <div class="wrap">
+    <span class="label">CASE-01 — Étude de cas</span>
+    <h1>Raffinerie d'Ispahan <em>— réseaux enterrés &amp; contrôle de projet.</em></h1>
+    <p class="lead">
+      Arrivé sur un lot en fort retard, j'ai participé à le remettre sur les rails en rendant le chantier lisible pour tous : ce qui peut avancer, ce qui est bloqué, et pourquoi.
+    </p>
+
+    <dl class="facts">
+      <div class="fact"><dt>Période</dt><dd>Juil. 2023 — juin 2024</dd></div>
+      <div class="fact"><dt>Rôle</dt><dd>Ingénieur planification &amp; contrôle de projet</dd></div>
+      <div class="fact"><dt>Entreprise</dt><dd>Sacookar Co.</dd></div>
+      <div class="fact"><dt>Projet</dt><dd>Unité d'hydrotraitement des résidus (RHU), avec les unités SSU et SRU</dd></div>
+    </dl>
+  </div>
+</section>
+
+<!-- METRICS -->
+<section class="white">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="idx">01</span>
+      <h2>Le projet en <em>chiffres</em></h2>
+    </div>
+
+    <div class="metrics">
+      <div class="metric"><b data-count="52000">52 000</b><span>pouces-diamètre<br>de tuyauterie enterrée</span></div>
+      <div class="metric"><b data-count="9000" data-prefix="~">~9 000</b><span>raccords soudés,<br>collés et filetés</span></div>
+      <div class="metric"><b data-count="40000" data-prefix="~">~40 000</b><span>pouces-diamètre réalisés<br>à mon départ</span></div>
+      <div class="metric"><b data-count="1700" data-suffix=" m³">1 700 m³</b><span>de béton coulés<br>en une journée (record)</span></div>
+    </div>
+    <p class="note">Planning de référence : ~18 mois, plus de 3 000 activités et environ 200 ouvrages répertoriés (fondations d'équipements, fondations de charpente, regards, bâtiments techniques).</p>
+  </div>
+</section>
+
+<!-- ROADMAP -->
+<section class="paper" id="parcours">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="idx">02</span>
+      <h2>Le parcours, <em>étape par étape</em></h2>
+    </div>
+
+    <div class="roadmap" id="roadmap">
+      <div class="track"><div class="track-fill" id="trackFill"></div></div>
+
+      <article class="step">
+        <div class="step-date">Janv. 2023</div>
+        <span class="step-dot"></span>
+        <div class="step-body">
+          <div class="step-code">ÉTAPE 01 — CONTEXTE</div>
+          <h3>Lancement des travaux</h3>
+          <p>Démarrage du génie civil de l'unité RHU de la raffinerie d'Ispahan : fondations d'équipements, fondations de charpente métallique, réseaux enterrés et bâtiments techniques. Les plans et le matériel sont fournis par le maître d'ouvrage, qui assure aussi le montage des équipements.</p>
+        </div>
+      </article>
+
+      <article class="step">
+        <div class="step-date">Juil. 2023</div>
+        <span class="step-dot"></span>
+        <div class="step-body">
+          <div class="step-code">ÉTAPE 02 — ARRIVÉE</div>
+          <h3>Un lot en retard, un responsable dédié</h3>
+          <p>Je rejoins la cellule contrôle de projet (deux ingénieurs sur site, sous la responsabilité d'un ingénieur du siège). Le lot des réseaux enterrés accuse un retard important : je suis chargé de le suivre directement.</p>
+          <ul><li>Tuyauterie enterrée</li><li>Caniveaux</li><li>Fourreaux</li><li>Regards</li></ul>
+        </div>
+      </article>
+
+      <article class="step">
+        <div class="step-date">Été 2023</div>
+        <span class="step-dot"></span>
+        <div class="step-body">
+          <div class="step-code">ÉTAPE 03 — DIAGNOSTIC</div>
+          <h3>Rendre le chantier lisible</h3>
+          <p>La priorité : que chacun comprenne la situation réelle. Pour chaque ouvrage, savoir s'il peut démarrer ou non, et pourquoi — plan manquant, matériel non livré, ou zone bloquée par le montage d'un équipement. Un ouvrage peut avoir ses plans et son matériel, et rester impossible à terrasser parce qu'il se trouve sur le chemin d'un montage.</p>
+        </div>
+      </article>
+
+      <article class="step">
+        <div class="step-date">Au quotidien</div>
+        <span class="step-dot"></span>
+        <div class="step-body">
+          <div class="step-code">ÉTAPE 04 — ROUTINE</div>
+          <h3>Du terrain au rapport</h3>
+          <p>Visite du chantier chaque matin, collecte des remontées de l'équipe travaux et du lot réseaux enterrés, puis rapport d'avancement quotidien au service contrôle de projet du maître d'ouvrage. Réunion hebdomadaire avec le maître d'ouvrage, deux à trois réunions internes par semaine, et points réguliers avec le directeur de projet sur les fronts de travail et les difficultés.</p>
+          <ul><li>Rapport quotidien</li><li>Réunion hebdomadaire</li><li>Fronts de travail</li></ul>
+        </div>
+      </article>
+
+      <article class="step">
+        <div class="step-date">Sept. 2023</div>
+        <span class="step-dot"></span>
+        <div class="step-body">
+          <div class="step-code">ÉTAPE 05 — ÉLARGISSEMENT</div>
+          <h3>La planification de tout le chantier</h3>
+          <p>Une fois le lot remis sur les rails, environ deux mois plus tard, la cellule prend en charge la planification de l'ensemble du chantier : volumes de béton, affectation des pelles mécaniques pour le terrassement, séquencement des fronts de travail. Record du chantier : 1 700 m³ de béton coulés en une journée.</p>
+        </div>
+      </article>
+
+      <article class="step">
+        <div class="step-date">2023 — 2024</div>
+        <span class="step-dot"></span>
+        <div class="step-body">
+          <div class="step-code">ÉTAPE 06 — TRAÇABILITÉ</div>
+          <h3>Tout documenter par écrit</h3>
+          <p>Chaque blocage lié au maître d'ouvrage — plans en retard, matériel non fourni, interférences avec le montage des équipements — est consigné par courrier, avec les relevés du chantier et des plans. Ces éléments servent ensuite d'appui dans les réunions et dans la gestion des réclamations.</p>
+          <ul><li>Courriers</li><li>Relevés terrain</li><li>Réclamations</li></ul>
+        </div>
+      </article>
+
+      <article class="step">
+        <div class="step-date">Juin 2024</div>
+        <span class="step-dot"></span>
+        <div class="step-body">
+          <div class="step-code">ÉTAPE 07 — RÉSULTATS</div>
+          <h3>Retard largement rattrapé, nouveau projet</h3>
+          <p>À mon départ, environ 40 000 des 52 000 pouces-diamètre du lot étaient réalisés. Le travail de documentation a contribué à la prolongation du contrat par le maître d'ouvrage, et à l'attribution d'un nouveau projet à l'entreprise : l'unité RFCC, menée en parallèle avec le même rôle.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- PIPELINE PROCESS -->
+<section class="white">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="idx">03</span>
+      <h2>Une canalisation enterrée, <em>sept étapes</em></h2>
+    </div>
+    <div class="copy" style="margin-bottom:2.5rem">
+      <p>Pour suivre l'avancement d'un réseau enterré, il ne suffit pas de compter les mètres posés. Chaque tronçon passe par une suite d'étapes, dont plusieurs réceptions par la maîtrise d'œuvre. C'est cette chaîne que le planning devait rendre visible.</p>
+    </div>
+
+    <div class="process" id="process">
+      <div class="proc"><div class="proc-n">1</div><h4>Terrassement</h4><p>Ouverture de la tranchée.</p></div>
+      <div class="proc"><div class="proc-n">2</div><h4>Réception du fond de fouille</h4><p>Contrôle du lit de pose.</p><span class="check">RÉCEPTION</span></div>
+      <div class="proc"><div class="proc-n">3</div><h4>Pose de la canalisation</h4><p>Assemblage des tronçons et raccords.</p></div>
+      <div class="proc"><div class="proc-n">4</div><h4>Contrôle de pose</h4><p>Vérification de l'alignement et des pentes.</p><span class="check">RÉCEPTION</span></div>
+      <div class="proc"><div class="proc-n">5</div><h4>Essai</h4><p>Test de la canalisation.</p><span class="check">ESSAI</span></div>
+      <div class="proc"><div class="proc-n">6</div><h4>Enrobage</h4><p>Lit de sable pour protéger la canalisation.</p></div>
+      <div class="proc"><div class="proc-n">7</div><h4>Remblai</h4><p>Fermeture de la tranchée.</p></div>
+    </div>
+    <p class="note">Pour les canalisations métalliques, des étapes supplémentaires s'ajoutent.</p>
+  </div>
+</section>
+
+<!-- LESSONS + TOOLS -->
+<section class="paper">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="idx">04</span>
+      <h2>Ce que j'en <em>retiens</em></h2>
+    </div>
+
+    <div class="cols">
+      <div class="block">
+        <h3>Compétences mobilisées</h3>
+        <ul>
+          <li><strong>Planification</strong> — séquencement des travaux, volumes de béton, moyens de terrassement.</li>
+          <li><strong>Contrôle de projet</strong> — suivi d'avancement, analyse des écarts, reporting quotidien.</li>
+          <li><strong>Coordination</strong> — interfaces entre génie civil, tuyauterie et montage d'équipements.</li>
+          <li><strong>Traçabilité</strong> — courriers, relevés et appui à la gestion des réclamations.</li>
+        </ul>
+      </div>
+      <div class="block">
+        <h3>Le lien avec le BIM</h3>
+        <ul>
+          <li>Le cœur du travail était la même question que pose le BIM : <strong>qui a besoin de quelle information, et quand</strong>.</li>
+          <li>Les blocages venaient presque toujours d'<strong>interfaces</strong> entre lots — exactement ce qu'une maquette coordonnée permet d'anticiper.</li>
+        </ul>
+        <h3 style="margin-top:2rem">Outils</h3>
+        <div class="tools"><span>Excel</span><span>AutoCAD</span><span>Primavera P6</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+  <div class="wrap">
+    <span class="label">Suite</span>
+    <h2>Mettre cette expérience au service d'un projet <em>BIM / BTP.</em></h2>
+    <div class="cta-actions">
+      <a class="btn light" href="index.html#contact">Me contacter</a>
+      <a class="btn" href="index.html#projets">← Autres études de cas</a>
+      <a class="btn" href="portfolio.html">→ Portfolio</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 HOSSEIN ARABKHABURI</span>
+  <span>NANCY, FRANCE — CASE-01</span>
+</footer>
+
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Reading progress bar under the nav
+  var bar = document.getElementById('readProgress');
+  // Roadmap line that fills as you scroll
+  var roadmap = document.getElementById('roadmap');
+  var fill = document.getElementById('trackFill');
+  var steps = Array.prototype.slice.call(document.querySelectorAll('.step'));
+
+  function onScroll(){
+    var doc = document.documentElement;
+    var max = doc.scrollHeight - window.innerHeight;
+    bar.style.transform = 'scaleX(' + (max > 0 ? window.scrollY / max : 0) + ')';
+
+    var r = roadmap.getBoundingClientRect();
+    var anchor = window.innerHeight * 0.55;          // reading line at 55% of the screen
+    var p = (anchor - r.top) / r.height;
+    p = Math.max(0, Math.min(1, p));
+    fill.style.transform = 'scaleY(' + p + ')';
+
+    var activeIndex = -1;
+    steps.forEach(function(s, i){
+      var top = s.getBoundingClientRect().top;
+      if (top < anchor) activeIndex = i;
+    });
+    steps.forEach(function(s, i){
+      s.classList.toggle('passed', i < activeIndex);
+      s.classList.toggle('active', i === activeIndex);
+      if (i <= activeIndex) s.classList.add('seen');
+    });
+  }
+
+  if (reduce) {
+    steps.forEach(function(s){ s.classList.add('seen'); });
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  window.addEventListener('resize', onScroll);
+  onScroll();
+
+  // Pipeline steps appear one after another
+  var procs = document.querySelectorAll('.proc');
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if (!e.isIntersecting) return;
+      procs.forEach(function(p, i){
+        setTimeout(function(){ p.classList.add('seen'); }, reduce ? 0 : i * 160);
+      });
+      io.disconnect();
+    });
+  }, {threshold:.25});
+  io.observe(document.getElementById('process'));
+
+  // Count-up for the key figures
+  var nums = document.querySelectorAll('.metric b[data-count]');
+  var fmt = function(n){ return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' '); };
+  var io2 = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if (!e.isIntersecting) return;
+      var el = e.target, target = +el.getAttribute('data-count');
+      var pre = el.getAttribute('data-prefix') || '', suf = el.getAttribute('data-suffix') || '';
+      if (reduce) { el.textContent = pre + fmt(target) + suf; io2.unobserve(el); return; }
+      var t0 = null;
+      function tick(t){
+        if (!t0) t0 = t;
+        var k = Math.min(1, (t - t0) / 1200);
+        k = 1 - Math.pow(1 - k, 3);
+        el.textContent = pre + fmt(Math.round(target * k)) + suf;
+        if (k < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+      io2.unobserve(el);
+    });
+  }, {threshold:.6});
+  nums.forEach(function(n){ io2.observe(n); });
+})();
+</script>
+
+</body>
+</html>
