@@ -287,12 +287,22 @@ h1,h2{font-weight:500;letter-spacing:-.035em}
 h1 em,h2 em,h3 em,.cert-num,.proc-n{font-style:normal}
 h1 em,h2 em,h3 em{font-weight:300}
 </style>
+<link rel="stylesheet" href="css/menu.css" />
 </head>
 <body>
 
 <nav>
-  <a class="logo" href="index.html">hossein-arabkhaburi.fr(v20)</a>
-  <a class="back-link" href="index.html#projets">← Retour au site</a>
+  <a class="logo" href="index.html">hossein-arabkhaburi.fr(v21)</a>
+  <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-menu" aria-label="Ouvrir le menu"><span></span><span></span><span></span></button>
+  <ul class="site-menu" id="site-menu">
+    <li><a href="index.html">Accueil</a></li>
+    <li><a href="parcours.html">Mon parcours</a></li>
+    <li><a href="index.html#experience">Expériences</a></li>
+    <li><a href="index.html#projets">Études de cas</a></li>
+    <li><a href="portfolio.html" aria-current="page">Portfolio</a></li>
+    <li><a href="Hossein-Arabkhaburi-CV.pdf" target="_blank" rel="noopener">CV</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
 </nav>
 
 <main>
@@ -425,5 +435,6 @@ h1 em,h2 em,h3 em{font-weight:300}
 })();
 </script>
 
+<script src="js/menu.js" defer></script>
 </body>
 </html>

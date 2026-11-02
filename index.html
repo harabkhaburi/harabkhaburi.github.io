@@ -790,18 +790,22 @@ h1,h2{font-weight:500;letter-spacing:-.035em}
 h1 em,h2 em,h3 em,.cert-num,.proc-n{font-style:normal}
 h1 em,h2 em,h3 em{font-weight:300}
 </style>
+<link rel="stylesheet" href="css/menu.css" />
 </head>
 
 <body>
 
 <nav>
-  <a class="logo" href="#top">hossein-arabkhaburi.fr(v20)</a>
-  <ul class="nav-links">
-    <li><a href="#profil"><span>01</span>Profil</a></li>
-    <li><a href="#bim"><span>02</span>BIM</a></li>
-    <li><a href="#experience"><span>03</span>Expérience</a></li>
-    <li><a href="#projets"><span>04</span>Projets</a></li>
-    <li><a href="#contact"><span>05</span>Contact</a></li>
+  <a class="logo" href="#top">hossein-arabkhaburi.fr(v21)</a>
+  <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-menu" aria-label="Ouvrir le menu"><span></span><span></span><span></span></button>
+  <ul class="site-menu" id="site-menu">
+    <li><a href="#top" aria-current="page">Accueil</a></li>
+    <li><a href="parcours.html">Mon parcours</a></li>
+    <li><a href="#experience">Expériences</a></li>
+    <li><a href="#projets">Études de cas</a></li>
+    <li><a href="portfolio.html">Portfolio</a></li>
+    <li><a href="Hossein-Arabkhaburi-CV.pdf" target="_blank" rel="noopener">CV</a></li>
+    <li><a href="#contact">Contact</a></li>
   </ul>
 </nav>
 
@@ -859,7 +863,7 @@ h1 em,h2 em,h3 em{font-weight:300}
         Passionné de géométrie et de conception technique, j'ai développé un goût prononcé pour le code appliqué à l'architecture — Revit, Rhino, Grasshopper. Mon expérience sur la raffinerie d'Ispahan m'a confronté aux enjeux réels de coordination sur un projet industriel complexe.
       </p>
       <p>
-        Basé à Nancy depuis 2025, je poursuis cet objectif avec rigueur — cours de français, enseignements à l'IAE — porté par une conviction simple : le travail par projet est ce que je fais de mieux.
+        Basé à Nancy depuis 2025, je suis étudiant en français à l'Université de Lorraine et je prépare une entrée en master pour la rentrée 2027.
       </p>
 
       <a class="btn soft" href="parcours.html" style="margin-bottom:2rem;display:inline-flex">→ Découvrir mon parcours complet</a>
@@ -874,45 +878,10 @@ h1 em,h2 em,h3 em{font-weight:300}
   </div>
 </section>
 
-<section id="bim" class="paper">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <span class="idx">02</span>
-      <h2>Approche <em>BIM</em></h2>
-    </div>
-
-    <div class="grid3">
-      <article class="card reveal">
-        <div class="code"><span>BIM-01</span><span>MODÉLISATION</span></div>
-        <img class="card-illus" src="images/bim/bim-01-modelisation.svg" alt="Modélisation : maquette 3D, niveaux et feuilles" width="640" height="440" loading="lazy" decoding="async">
-        <h3>Modélisation technique & documentation</h3>
-        <p>Création et organisation de modèles 3D avec attention portée aux niveaux, vues, feuilles, familles et documents techniques.</p>
-        <div class="meta">REVIT · RHINO · AUTOCAD · DOCUMENTATION</div>
-      </article>
-
-      <article class="card reveal">
-        <div class="code"><span>BIM-02</span><span>COORDINATION</span></div>
-        <img class="card-illus" src="images/bim/bim-02-coordination.svg" alt="Coordination : superposition des lots et détection de conflits" width="640" height="440" loading="lazy" decoding="async">
-        <h3>Interfaces entre disciplines</h3>
-        <p>Compréhension des interfaces entre architecture, structure, lots techniques et chantier grâce à une expérience terrain.</p>
-        <div class="meta">SYNTHÈSE · INTERFACES · CHANTIER · REPORTING</div>
-      </article>
-
-      <article class="card reveal">
-        <div class="code"><span>BIM-03</span><span>MANAGEMENT</span></div>
-        <img class="card-illus" src="images/bim/bim-03-management.svg" alt="Management : données, planning et suivi de projet" width="640" height="440" loading="lazy" decoding="async">
-        <h3>Données, processus & suivi projet</h3>
-        <p>Structuration des informations projet, suivi des livrables, tableaux de bord et reporting pour faciliter la coordination.</p>
-        <div class="meta">EXCEL · MS PROJECT · WBS · PROJECT CONTROL</div>
-      </article>
-    </div>
-  </div>
-</section>
-
 <section id="experience" class="white">
   <div class="wrap">
     <div class="section-head reveal">
-      <span class="idx">03</span>
+      <span class="idx">02</span>
       <h2>Expérience <em>professionnelle</em></h2>
     </div>
 
@@ -921,7 +890,7 @@ h1 em,h2 em,h3 em{font-weight:300}
         <div class="exp-code">EXP-01</div>
         <div class="exp-date">Juil. 2023 — juin 2024</div>
         <div>
-          <h3>Ingénieur Planification & Contrôle de Projet</h3>
+          <h3>Chargé de planification & contrôle de projet</h3>
           <div class="company">SACOOKAR CO. — RAFFINERIE D'ISPAHAN, IRAN</div>
           <p>Recruté pour reprendre en main le lot des réseaux enterrés (tuyauterie enterrée, caniveaux, fourreaux, regards), alors en fort retard, puis chargé de la planification de l'ensemble du chantier : volumes de béton, affectation des engins de terrassement, rapports d'avancement quotidiens au maître d'ouvrage et réunion hebdomadaire de suivi.</p>
         </div>
@@ -975,7 +944,7 @@ h1 em,h2 em,h3 em{font-weight:300}
 <section id="projets" class="paper">
   <div class="wrap">
     <div class="section-head reveal">
-      <span class="idx">04</span>
+      <span class="idx">03</span>
       <h2>Études de <em>cas</em></h2>
     </div>
 
@@ -1017,6 +986,41 @@ h1 em,h2 em,h3 em{font-weight:300}
   </div>
 </section>
 
+<section id="bim" class="paper">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="idx">04</span>
+      <h2>Approche <em>BIM</em></h2>
+    </div>
+
+    <div class="grid3">
+      <article class="card reveal">
+        <div class="code"><span>BIM-01</span><span>MODÉLISATION</span></div>
+        <img class="card-illus" src="images/bim/bim-01-modelisation.svg" alt="Modélisation : maquette 3D, niveaux et feuilles" width="640" height="440" loading="lazy" decoding="async">
+        <h3>Modélisation technique & documentation</h3>
+        <p>Création et organisation de modèles 3D avec attention portée aux niveaux, vues, feuilles, familles et documents techniques.</p>
+        <div class="meta">REVIT · RHINO · AUTOCAD · DOCUMENTATION</div>
+      </article>
+
+      <article class="card reveal">
+        <div class="code"><span>BIM-02</span><span>COORDINATION</span></div>
+        <img class="card-illus" src="images/bim/bim-02-coordination.svg" alt="Coordination : superposition des lots et détection de conflits" width="640" height="440" loading="lazy" decoding="async">
+        <h3>Interfaces entre disciplines</h3>
+        <p>Compréhension des interfaces entre architecture, structure, lots techniques et chantier grâce à une expérience terrain.</p>
+        <div class="meta">SYNTHÈSE · INTERFACES · CHANTIER · REPORTING</div>
+      </article>
+
+      <article class="card reveal">
+        <div class="code"><span>BIM-03</span><span>MANAGEMENT</span></div>
+        <img class="card-illus" src="images/bim/bim-03-management.svg" alt="Management : données, planning et suivi de projet" width="640" height="440" loading="lazy" decoding="async">
+        <h3>Données, processus & suivi projet</h3>
+        <p>Structuration des informations projet, suivi des livrables, tableaux de bord et reporting pour faciliter la coordination.</p>
+        <div class="meta">EXCEL · MS PROJECT · WBS · CONTRÔLE DE PROJET</div>
+      </article>
+    </div>
+  </div>
+</section>
+
 <section id="competences" class="white">
   <div class="wrap">
     <div class="section-head reveal">
@@ -1026,23 +1030,16 @@ h1 em,h2 em,h3 em{font-weight:300}
 
     <div class="skills reveal">
       <div class="skill-row">
-        <div class="skill-title">BIM & MODÉLISATION</div>
+        <div class="skill-title">CONCEPTION & BIM</div>
         <div class="skill-list">
-          <span>Revit</span><span>AutoCAD</span><span>Rhino</span><span>Grasshopper</span><span>Navisworks</span><span>IFC / OpenBIM</span><span>Autodesk Construction Cloud</span>
+          <span>Revit</span><span>Rhino</span><span>Grasshopper</span><span>AutoCAD</span><span>Navisworks</span>
         </div>
       </div>
 
       <div class="skill-row">
-        <div class="skill-title">COORDINATION PROJET</div>
+        <div class="skill-title">PLANIFICATION</div>
         <div class="skill-list">
-          <span>Planification</span><span>Contrôle de projet</span><span>Coordination technique</span><span>Suivi de chantier</span><span>Reporting</span><span>Documentation technique</span>
-        </div>
-      </div>
-
-      <div class="skill-row">
-        <div class="skill-title">DATA & DOCUMENTATION</div>
-        <div class="skill-list">
-          <span>Excel avancé</span><span>Primavera P6</span><span>Microsoft Project</span><span>PowerPoint</span><span>WBS</span><span>Tableaux de bord</span><span>Rapports techniques</span>
+          <span>Primavera P6</span><span>Microsoft Project</span><span>Excel</span>
         </div>
       </div>
 
@@ -1050,6 +1047,13 @@ h1 em,h2 em,h3 em{font-weight:300}
         <div class="skill-title">RENDU & GRAPHISME</div>
         <div class="skill-list">
           <span>Enscape</span><span>Lumion</span><span>Photoshop</span><span>InDesign</span>
+        </div>
+      </div>
+
+      <div class="skill-row">
+        <div class="skill-title">SAVOIR-FAIRE</div>
+        <div class="skill-list">
+          <span>Planification de chantier</span><span>Contrôle de projet</span><span>Suivi de chantier</span><span>Reporting</span>
         </div>
       </div>
 
@@ -1073,7 +1077,7 @@ h1 em,h2 em,h3 em{font-weight:300}
     <div class="certs reveal">
       <div class="cert">
         <div class="cert-num">01</div>
-        <div><h3>Licence en Architecture — Bac+4</h3><p>Iran University of Science and Technology · Moyenne 15,33/20 · Reconnu niveau Licence par ENIC-NARIC France</p></div>
+        <div><h3>Licence en Architecture — Bac+4</h3><p>Iran University of Science and Technology · Moyenne 15,33/20 (barème iranien) · Reconnu niveau Licence par ENIC-NARIC France</p></div>
         <div class="cert-date">2017 — 2022</div>
       </div>
 
@@ -1097,8 +1101,8 @@ h1 em,h2 em,h3 em{font-weight:300}
 
       <div class="cert">
         <div class="cert-num">05</div>
-        <div><h3>Formation de langue française — Niveau B2</h3><p>Université de Lorraine</p></div>
-        <div class="cert-date">2025</div>
+        <div><h3>Formation de langue française — Niveau B2</h3><p>Université de Lorraine · en cours</p></div>
+        <div class="cert-date">2025 — auj.</div>
       </div>
     </div>
   </div>
@@ -1188,5 +1192,6 @@ if(mobileVisual && profilSection){
 }
 </script>
 
+<script src="js/menu.js" defer></script>
 </body>
 </html>

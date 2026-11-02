@@ -585,12 +585,22 @@ h1,h2{font-weight:500;letter-spacing:-.035em}
 h1 em,h2 em,h3 em,.cert-num,.proc-n{font-style:normal}
 h1 em,h2 em,h3 em{font-weight:300}
 </style>
+<link rel="stylesheet" href="css/menu.css" />
 </head>
 <body>
 
 <nav>
-  <a class="logo" href="index.html">hossein-arabkhaburi.fr(v20)</a>
-  <a class="back-link" href="index.html#projets">← Études de cas</a>
+  <a class="logo" href="index.html">hossein-arabkhaburi.fr(v21)</a>
+  <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-menu" aria-label="Ouvrir le menu"><span></span><span></span><span></span></button>
+  <ul class="site-menu" id="site-menu">
+    <li><a href="index.html">Accueil</a></li>
+    <li><a href="parcours.html">Mon parcours</a></li>
+    <li><a href="index.html#experience">Expériences</a></li>
+    <li><a href="index.html#projets" aria-current="page">Études de cas</a></li>
+    <li><a href="portfolio.html">Portfolio</a></li>
+    <li><a href="Hossein-Arabkhaburi-CV.pdf" target="_blank" rel="noopener">CV</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
   <div class="read-progress" id="readProgress"></div>
 </nav>
 
@@ -615,7 +625,7 @@ h1 em,h2 em,h3 em{font-weight:300}
 
     <dl class="facts">
       <div class="fact"><dt>Période</dt><dd>Juil. 2023 — juin 2024</dd></div>
-      <div class="fact"><dt>Rôle</dt><dd>Ingénieur planification &amp; contrôle de projet</dd></div>
+      <div class="fact"><dt>Rôle</dt><dd>Chargé de planification &amp; contrôle de projet</dd></div>
       <div class="fact"><dt>Entreprise</dt><dd>Sacookar Co.</dd></div>
       <div class="fact"><dt>Projet</dt><dd>Unité d'hydrotraitement des résidus (RHU), avec les unités SSU et SRU</dd></div>
     </dl>
@@ -667,7 +677,7 @@ h1 em,h2 em,h3 em{font-weight:300}
         <div class="step-body">
           <div class="step-code">ÉTAPE 02 — ARRIVÉE</div>
           <h3>Un lot en retard, un responsable dédié</h3>
-          <p>Je rejoins la cellule contrôle de projet (deux ingénieurs sur site, sous la responsabilité d'un ingénieur du siège). Le lot des réseaux enterrés accuse un retard important : je suis chargé de le suivre directement.</p>
+          <p>Je rejoins la cellule contrôle de projet (deux personnes sur site, sous la responsabilité d'un ingénieur du siège). Le lot des réseaux enterrés accuse un retard important : je suis chargé de le suivre directement.</p>
           <ul><li>Tuyauterie enterrée</li><li>Caniveaux</li><li>Fourreaux</li><li>Regards</li></ul>
         </div>
       </article>
@@ -786,7 +796,7 @@ h1 em,h2 em,h3 em{font-weight:300}
 <section class="cta">
   <div class="wrap">
     <span class="label">Suite</span>
-    <h2>Mettre cette expérience au service d'un projet <em>BIM / BTP.</em></h2>
+    <h2>Approfondir cette expérience en <em>BIM et gestion de projet.</em></h2>
     <div class="cta-actions">
       <a class="btn light" href="index.html#contact">Me contacter</a>
       <a class="btn" href="index.html#projets">← Autres études de cas</a>
@@ -879,5 +889,6 @@ h1 em,h2 em,h3 em{font-weight:300}
 })();
 </script>
 
+<script src="js/menu.js" defer></script>
 </body>
 </html>

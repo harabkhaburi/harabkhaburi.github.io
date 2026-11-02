@@ -249,12 +249,22 @@ h1,h2{font-weight:500;letter-spacing:-.035em}
 h1 em,h2 em,h3 em,.cert-num,.proc-n{font-style:normal}
 h1 em,h2 em,h3 em{font-weight:300}
 </style>
+<link rel="stylesheet" href="css/menu.css" />
 </head>
 <body>
 
 <nav>
-  <a class="logo" href="index.html">hossein-arabkhaburi.fr(v20)</a>
-  <a class="back-link" href="index.html#profil">← Retour au site</a>
+  <a class="logo" href="index.html">hossein-arabkhaburi.fr(v21)</a>
+  <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-menu" aria-label="Ouvrir le menu"><span></span><span></span><span></span></button>
+  <ul class="site-menu" id="site-menu">
+    <li><a href="index.html">Accueil</a></li>
+    <li><a href="parcours.html" aria-current="page">Mon parcours</a></li>
+    <li><a href="index.html#experience">Expériences</a></li>
+    <li><a href="index.html#projets">Études de cas</a></li>
+    <li><a href="portfolio.html">Portfolio</a></li>
+    <li><a href="Hossein-Arabkhaburi-CV.pdf" target="_blank" rel="noopener">CV</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
 </nav>
 
 <section class="white">
@@ -269,7 +279,7 @@ h1 em,h2 em,h3 em{font-weight:300}
 
       <div>
         <p class="lead">
-          Architecte de formation, je construis aujourd'hui mon profil autour de la <em>coordination BIM</em>, de la modélisation technique et de la gestion de projet.
+          Architecte de formation, je construis aujourd'hui mon profil autour du <em>BIM</em>, de la conception numérique et de la gestion de projet.
         </p>
         <div class="copy">
           <p>
@@ -279,10 +289,10 @@ h1 em,h2 em,h3 em{font-weight:300}
             Mon expérience sur la raffinerie d'Ispahan m'a permis de comprendre les enjeux réels de l'exécution : interfaces techniques, coordination entre disciplines, suivi des délais, qualité des informations et communication entre les acteurs du projet.
           </p>
           <p>
-            J'aime particulièrement le travail par projet : structurer, planifier et coordonner des équipes jusqu'à la livraison. C'est une aptitude que mon entourage professionnel et universitaire me reconnaît régulièrement, et qui rejoint naturellement mon intérêt sincère pour le BIM — bien au-delà d'une simple reconversion stratégique.
+            J'aime particulièrement le travail par projet : structurer, planifier et coordonner des équipes jusqu'à la livraison.
           </p>
           <p>
-            Basé à Nancy depuis 2025, je suis actuellement des cours de français et j'assiste à certains enseignements de l'IAE en parallèle de mes démarches, avec l'objectif d'évoluer vers un poste d'<strong>Assistant BIM Manager / Coordinateur BIM Junior</strong>, en combinant mes compétences en architecture, modélisation 3D, planification et coordination de projet.
+            Basé à Nancy depuis 2025, je suis actuellement étudiant en français à l'Université de Lorraine et je prépare une entrée en <strong>master pour la rentrée 2027</strong>, afin de réunir architecture, conception numérique, BIM et gestion de projet.
           </p>
         </div>
 
@@ -304,5 +314,6 @@ h1 em,h2 em,h3 em{font-weight:300}
   </div>
 </section>
 
+<script src="js/menu.js" defer></script>
 </body>
 </html>
