@@ -563,6 +563,16 @@ h2{
   padding:.25rem .55rem;
 }
 
+/* ENGAGEMENT (accueil) */
+.engage{margin-top:3rem;display:grid;grid-template-columns:240px 1fr;border-top:1px solid var(--line2);border-bottom:1px solid var(--line2)}
+.engage-title{font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;color:var(--blue);padding:1.4rem 1.5rem 1.4rem 0}
+.engage ul{list-style:none;border-left:1px solid var(--line2)}
+.engage li{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;padding:1rem 1.5rem;border-bottom:1px solid var(--line)}
+.engage li:last-child{border-bottom:0}
+.engage b{font-weight:500;font-size:.92rem}
+.engage span{font-family:var(--mono);font-size:.7rem;color:var(--mid)}
+@media(max-width:1024px){.engage{grid-template-columns:1fr}.engage ul{border-left:0}.engage-title{padding:1.2rem 0 .4rem}.engage li{padding:.9rem 0}}
+
 /* SKILLS */
 .skills{
   border-top:1px solid var(--line2);
@@ -801,7 +811,7 @@ h1 em,h2 em,h3 em{font-weight:300}
   <ul class="site-menu" id="site-menu">
     <li><a href="#top" aria-current="page">Accueil</a></li>
     <li><a href="parcours.html">Mon parcours</a></li>
-    <li><a href="#experience">Expériences</a></li>
+    <li><a href="experiences.html">Expériences</a></li>
     <li><a href="#projets">Études de cas</a></li>
     <li><a href="portfolio.html">Portfolio</a></li>
     <li><a href="Hossein-Arabkhaburi-CV.pdf" target="_blank" rel="noopener">CV</a></li>
@@ -882,7 +892,7 @@ h1 em,h2 em,h3 em{font-weight:300}
   <div class="wrap">
     <div class="section-head reveal">
       <span class="idx">02</span>
-      <h2>Expérience <em>professionnelle</em></h2>
+      <h2>Expériences <em>marquantes</em></h2>
     </div>
 
     <div class="timeline">
@@ -903,12 +913,12 @@ h1 em,h2 em,h3 em{font-weight:300}
         <div class="exp-code">EXP-02</div>
         <div class="exp-date">2022 — 2023</div>
         <div>
-          <h3>Modélisation 3D & Conception Technique</h3>
+          <h3>Modélisation 3D &amp; conception technique</h3>
           <div class="company">ASTA ENGINEERING — TÉHÉRAN, IRAN</div>
           <p>Modélisation 3D de serres industrielles et production de plans techniques pour dossiers d'exécution. Organisation des vues et préparation des documents graphiques.</p>
         </div>
         <div class="tags">
-          <span class="tag">Revit</span><span class="tag">3D Modeling</span><span class="tag">Dossier EXE</span>
+          <span class="tag">Revit</span><span class="tag">Modélisation 3D</span><span class="tag">Dossier EXE</span>
         </div>
       </article>
 
@@ -916,7 +926,7 @@ h1 em,h2 em,h3 em{font-weight:300}
         <div class="exp-code">EXP-03</div>
         <div class="exp-date">2022</div>
         <div>
-          <h3>Assistant d'Enseignement — Gestion de Chantier</h3>
+          <h3>Assistant d'enseignement — gestion de chantier</h3>
           <div class="company">IUST — TÉHÉRAN, IRAN</div>
           <p>Support pédagogique en gestion de chantier, suivi quotidien des tâches d'exécution et accompagnement des étudiants dans la compréhension des processus de construction.</p>
         </div>
@@ -925,19 +935,18 @@ h1 em,h2 em,h3 em{font-weight:300}
         </div>
       </article>
 
-      <article class="exp reveal">
-        <div class="exp-code">EXP-04</div>
-        <div class="exp-date">2020</div>
-        <div>
-          <h3>Assistant de Chantier</h3>
-          <div class="company">GAM CO. — TÉHÉRAN, IRAN</div>
-          <p>Participation au suivi des opérations quotidiennes sur site, coordination avec l'équipe d'exécution et observation des contraintes réelles de chantier.</p>
-        </div>
-        <div class="tags">
-          <span class="tag">Chantier</span><span class="tag">Exécution</span>
-        </div>
-      </article>
     </div>
+
+    <div class="engage reveal">
+      <div class="engage-title">ENGAGEMENT BÉNÉVOLE</div>
+      <ul>
+        <li><b>Ateliers d'initiation au persan</b><span>Université de Lorraine · 2025 — 2026</span></li>
+        <li><b>Ateliers en ligne — 2 056 participants</b><span>eSeminar.tv · 2020 — 2021</span></li>
+        <li><b>Conseil des étudiants, voyages d'étude d'architecture</b><span>IUST · 2017 — 2019</span></li>
+      </ul>
+    </div>
+
+    <a class="btn soft" href="experiences.html" style="margin-top:2.5rem;display:inline-flex">→ Toutes mes expériences</a>
   </div>
 </section>
 
